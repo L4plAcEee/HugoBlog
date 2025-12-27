@@ -1,5 +1,5 @@
 
-baseURL = 'https://example.org/'
+baseURL = 'https://l4pl.top'
 languageCode = 'zh-cn'
 title = "L4place's blog"
 theme = 'github-style'
@@ -10,14 +10,14 @@ pygmentsUseClasses = true
 [params]
   author = "L4place"
   description = "在偌大的赛博网络中的一块小小自留地。"
-  github = "L4place"
-  facebook = "L4place"
-  twitter = "L4place"
-  linkedin = "L4place"
-  instagram = "L4place"
-  tumblr = "L4place"
-  email = "L4place@gmail.com"
-  url = "https://L4place.com"
+  github = "L4plAcEee"
+  # facebook = "L4place"
+  # twitter = "L4place"
+  # linkedin = "L4place"
+  # instagram = "L4place"
+  # tumblr = "L4place"
+  # email = "L4place@gmail.com"
+  url = "https://l4pl.top"
   keywords = "blog, google analytics"
   rss = true
   lastmod = true
