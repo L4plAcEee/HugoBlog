@@ -6,13 +6,13 @@
     <description>Recent content in Python on L4place&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 01 Jan 2026 02:46:30 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 01 Jan 2026 05:53:25 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>【Re:0】数据挖掘实验笔记</title>
-      <link>http://localhost:1313/post/0x03-data-dipping-exp/</link>
+      <title>【N0te】数据挖掘实验</title>
+      <link>http://localhost:1313/post/note/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E9%AA%8C/</link>
       <pubDate>Thu, 01 Jan 2026 02:44:08 +0800</pubDate>
-      <guid>http://localhost:1313/post/0x03-data-dipping-exp/</guid>
+      <guid>http://localhost:1313/post/note/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E9%AA%8C/</guid>
       <description>数据挖掘基础操作学习，以及各种常见算法模型的应用，最后构建自己的推荐算法。</description>
     </item>
   </channel>
