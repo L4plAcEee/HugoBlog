@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='http://localhost:1313/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='http://localhost:1313/css/frameworks.min.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/github.min.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/github-style.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/light.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/dark.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/syntax.css' />
+    <title> - L4place&#39;s blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github-mark.png'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    
+
+    
+    <meta name="description"
+  content="一、EL表达式 表达式语言（Expression Language，EL）,EL表达式是用&quot;${}&ldquo;括起来的脚本，用来更方便的读取对象！EL表达式主要用来读取数据，进行内容的显示！
+EL表达式主要是来对内容的显示，为了显示的方便，EL表达式提供了11个内置对象：
+1. pageContext 对应于JSP页面中的pageContext对象（注意：取的是pageContext对象）
+2. pageScope 代表page域中用于保存属性的Map对象
+3. requestScope 代表request域中用于保存属性的Map对象
+4. sessionScope 代表session域中用于保存属性的Map对象
+5. applicationScope 代表application域中用于保存属性的Map对象
+6. param 表示一个保存了所有请求参数的Map对象
+7. paramValues表示一个保存了所有请求参数的Map对象，它对于某个请求参数，返回的是一个string[]
+8. header 表示一个保存了所有http请求头字段的Map对象
+9. headerValues同上，返回string[]数组
+10. cookie 表示一个保存了所有cookie的Map对象
+11. initParam 表示一个保存了所有web应用初始化参数的map对象
+EL表达式支持简单的运算符：加减乘除取摸，逻辑运算符，三目运算符。empty运算符（判断是否为null)
+二、JSTL标签 JSP标准标签库（JSTL）是一个JSP标签集合，它封装了JSP应用的通用核心功能。JSTL支持通用的、结构化的任务，比如迭代，条件判断，XML文档操作，国际化标签，SQL标签。 除了这些，它还提供了一个框架来使用集成JSTL的自定义标签。
+根据JSTL标签所提供的功能，可以将其分为5个类别：核心标签、格式化标签、SQL 标签、XML 标签、JSTL 函数。
+1、JSTL 库安装
+Apache Tomcat安装JSTL库步骤如下：
+（1） 从Apache的标准标签库中下载的二进包(jakarta-taglibs-standard-current.zip)。官方下载地址：http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/
+（2） 下载akarta-taglibs-standard-1.1.2.zip 包并解压，将 jakarta-taglibs-standard-1.1.2/lib/ 下的两个 jar 文件：standard.jar 和 jstl.jar 文件拷贝到 /WEB-INF/lib/ 下。
+（3） 将 tld 下的需要引入的 tld 文件复制到 WEB-INF 目录下。
+（4） 配置web.xml 文件如下：
+" />
+<meta name="keywords"
+  content='blog, google analytics' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/post/0x02-javaweb%E5%AE%9E%E9%AA%8C/6.-%E5%AE%9E%E9%AA%8C%E5%85%ADjsp%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E8%A8%80el%E5%92%8Cjsp%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93jstl/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content=" - L4place&#39;s blog" />
+<meta name="twitter:description"
+  content="一、EL表达式 表达式语言（Expression Language，EL）,EL表达式是用&quot;${}&ldquo;括起来的脚本，用来更方便的读取对象！EL表达式主要用来读取数据，进行内容的显示！
+EL表达式主要是来对内容的显示，为了显示的方便，EL表达式提供了11个内置对象：
+1. pageContext 对应于JSP页面中的pageContext对象（注意：取的是pageContext对象）
+2. pageScope 代表page域中用于保存属性的Map对象
+3. requestScope 代表request域中用于保存属性的Map对象
+4. sessionScope 代表session域中用于保存属性的Map对象
+5. applicationScope 代表application域中用于保存属性的Map对象
+6. param 表示一个保存了所有请求参数的Map对象
+7. paramValues表示一个保存了所有请求参数的Map对象，它对于某个请求参数，返回的是一个string[]
+8. header 表示一个保存了所有http请求头字段的Map对象
+9. headerValues同上，返回string[]数组
+10. cookie 表示一个保存了所有cookie的Map对象
+11. initParam 表示一个保存了所有web应用初始化参数的map对象
+EL表达式支持简单的运算符：加减乘除取摸，逻辑运算符，三目运算符。empty运算符（判断是否为null)
+二、JSTL标签 JSP标准标签库（JSTL）是一个JSP标签集合，它封装了JSP应用的通用核心功能。JSTL支持通用的、结构化的任务，比如迭代，条件判断，XML文档操作，国际化标签，SQL标签。 除了这些，它还提供了一个框架来使用集成JSTL的自定义标签。
+根据JSTL标签所提供的功能，可以将其分为5个类别：核心标签、格式化标签、SQL 标签、XML 标签、JSTL 函数。
+1、JSTL 库安装
+Apache Tomcat安装JSTL库步骤如下：
+（1） 从Apache的标准标签库中下载的二进包(jakarta-taglibs-standard-current.zip)。官方下载地址：http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/
+（2） 下载akarta-taglibs-standard-1.1.2.zip 包并解压，将 jakarta-taglibs-standard-1.1.2/lib/ 下的两个 jar 文件：standard.jar 和 jstl.jar 文件拷贝到 /WEB-INF/lib/ 下。
+（3） 将 tld 下的需要引入的 tld 文件复制到 WEB-INF 目录下。
+（4） 配置web.xml 文件如下：
+" />
+<meta name="twitter:site" content="http://localhost:1313/" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="http://localhost:1313/">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content=" - L4place&#39;s blog">
+<meta property="og:description"
+  content="一、EL表达式 表达式语言（Expression Language，EL）,EL表达式是用&quot;${}&ldquo;括起来的脚本，用来更方便的读取对象！EL表达式主要用来读取数据，进行内容的显示！
+EL表达式主要是来对内容的显示，为了显示的方便，EL表达式提供了11个内置对象：
+1. pageContext 对应于JSP页面中的pageContext对象（注意：取的是pageContext对象）
+2. pageScope 代表page域中用于保存属性的Map对象
+3. requestScope 代表request域中用于保存属性的Map对象
+4. sessionScope 代表session域中用于保存属性的Map对象
+5. applicationScope 代表application域中用于保存属性的Map对象
+6. param 表示一个保存了所有请求参数的Map对象
+7. paramValues表示一个保存了所有请求参数的Map对象，它对于某个请求参数，返回的是一个string[]
+8. header 表示一个保存了所有http请求头字段的Map对象
+9. headerValues同上，返回string[]数组
+10. cookie 表示一个保存了所有cookie的Map对象
+11. initParam 表示一个保存了所有web应用初始化参数的map对象
+EL表达式支持简单的运算符：加减乘除取摸，逻辑运算符，三目运算符。empty运算符（判断是否为null)
+二、JSTL标签 JSP标准标签库（JSTL）是一个JSP标签集合，它封装了JSP应用的通用核心功能。JSTL支持通用的、结构化的任务，比如迭代，条件判断，XML文档操作，国际化标签，SQL标签。 除了这些，它还提供了一个框架来使用集成JSTL的自定义标签。
+根据JSTL标签所提供的功能，可以将其分为5个类别：核心标签、格式化标签、SQL 标签、XML 标签、JSTL 函数。
+1、JSTL 库安装
+Apache Tomcat安装JSTL库步骤如下：
+（1） 从Apache的标准标签库中下载的二进包(jakarta-taglibs-standard-current.zip)。官方下载地址：http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/
+（2） 下载akarta-taglibs-standard-1.1.2.zip 包并解压，将 jakarta-taglibs-standard-1.1.2/lib/ 下的两个 jar 文件：standard.jar 和 jstl.jar 文件拷贝到 /WEB-INF/lib/ 下。
+（3） 将 tld 下的需要引入的 tld 文件复制到 WEB-INF 目录下。
+（4） 配置web.xml 文件如下：
+" />
+<meta property="og:url" content="http://localhost:1313/post/0x02-javaweb%E5%AE%9E%E9%AA%8C/6.-%E5%AE%9E%E9%AA%8C%E5%85%ADjsp%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E8%A8%80el%E5%92%8Cjsp%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93jstl/" />
+<meta property="og:site_name" content="" />
+<meta property="og:image"
+  content="http://localhost:1313/">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="http://localhost:1313/">
+        <img class="octicon" height="32" width="32" src="/images/github-mark-white.png">
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:http://localhost:1313/">
+            </label>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="http://localhost:1313/">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="/images/github-mark-white.png">
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+
+  <div id="search-result" class="container-lg px-3 new-discussion-timeline" style="display: none;">
+</div>
+
+  
+<div class="application-main">
+  <div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="http://localhost:1313/">
+                  <img class=" avatar-user"
+                    src="/images/avatar.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="http://localhost:1313/">L4place</a>
+                  </span>
+                  <span class="path-divider">/</span>
+                  <strong class="css-truncate css-truncate-target mr-1" style="max-width: 410px">
+                    <a href="http://localhost:1313/post/0x02-javaweb%E5%AE%9E%E9%AA%8C/6.-%E5%AE%9E%E9%AA%8C%E5%85%ADjsp%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E8%A8%80el%E5%92%8Cjsp%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93jstl/"></a>
+                  </strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Mon, 01 Jan 0001 00:00:00 &#43;0000"
+                    class="no-wrap">
+                    Mon, 01 Jan 0001 00:00:00 &#43;0000</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Thu, 01 Jan 2026 01:33:45 &#43;0800"
+                    class="no-wrap">
+                    Thu, 01 Jan 2026 01:33:45 &#43;0800</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header" style="z-index: 2">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" onclick="clickToc()" class="btn btn-octicon m-0 mr-2 p-2">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                    <details-menu class="SelectMenu" id="toc-details" style="display: none;">
+                      <div class="SelectMenu-modal rounded-3 mt-1" style="max-height: 340px;">
+                        <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;" id="toc-list">
+                        </div>
+                      </div>
+                    </details-menu>
+                      2584 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5" style="z-index: 1">
+                <article class="markdown-body entry-content container-lg"><h2 id="一el表达式"><strong>一、EL表达式</strong></h2>
+<p>表达式语言（Expression Language，EL）,EL表达式是用&quot;${}&ldquo;括起来的脚本，用来更方便的读取对象！EL表达式主要用来读取数据，进行内容的显示！</p>
+<p>EL表达式主要是来对内容的显示，为了显示的方便，EL表达式提供了11个内置对象：</p>
+<p>1. pageContext 对应于JSP页面中的pageContext对象（注意：取的是pageContext对象）</p>
+<p>2. pageScope 代表page域中用于保存属性的Map对象</p>
+<p>3. requestScope 代表request域中用于保存属性的Map对象</p>
+<p>4. sessionScope 代表session域中用于保存属性的Map对象</p>
+<p>5. applicationScope 代表application域中用于保存属性的Map对象</p>
+<p>6. param 表示一个保存了所有请求参数的Map对象</p>
+<p>7. paramValues表示一个保存了所有请求参数的Map对象，它对于某个请求参数，返回的是一个string[]</p>
+<p>8. header 表示一个保存了所有http请求头字段的Map对象</p>
+<p>9. headerValues同上，返回string[]数组</p>
+<p>10. cookie 表示一个保存了所有cookie的Map对象</p>
+<p>11. initParam 表示一个保存了所有web应用初始化参数的map对象</p>
+<p>EL表达式支持简单的运算符：加减乘除取摸，逻辑运算符，三目运算符。empty运算符（判断是否为null)</p>
+<h2 id="二jstl标签"><strong>二、JSTL标签</strong></h2>
+<p>JSP标准标签库（JSTL）是一个JSP标签集合，它封装了JSP应用的通用核心功能。JSTL支持通用的、结构化的任务，比如迭代，条件判断，XML文档操作，国际化标签，SQL标签。 除了这些，它还提供了一个框架来使用集成JSTL的自定义标签。</p>
+<p>根据JSTL标签所提供的功能，可以将其分为5个类别：核心标签、格式化标签、SQL 标签、XML 标签、JSTL 函数。</p>
+<p>1、JSTL 库安装</p>
+<p>Apache Tomcat安装JSTL库步骤如下：</p>
+<p>（1） 从Apache的标准标签库中下载的二进包(jakarta-taglibs-standard-current.zip)。官方下载地址：<a href="http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/">http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/</a></p>
+<p>（2） 下载akarta-taglibs-standard-1.1.2.zip 包并解压，将 jakarta-taglibs-standard-1.1.2/lib/ 下的两个 jar 文件：standard.jar 和 jstl.jar 文件拷贝到 /WEB-INF/lib/ 下。</p>
+<p>（3） 将 tld 下的需要引入的 tld 文件复制到 WEB-INF 目录下。</p>
+<p>（4） 配置web.xml 文件如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;web-app</span> <span class="na">version=</span><span class="s">&#34;2.4&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="na">xmlns=</span><span class="s">&#34;http://java.sun.com/xml/ns/j2ee&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://java.sun.com/xml/ns/j2ee
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">        http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;jsp-config&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-uri&gt;</span>http://java.sun.com/jsp/jstl/fmt<span class="nt">&lt;/taglib-uri&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-location&gt;</span>/WEB-INF/fmt.tld<span class="nt">&lt;/taglib-location&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-uri&gt;</span>http://java.sun.com/jsp/jstl/fmt-rt<span class="nt">&lt;/taglib-uri&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-location&gt;</span>/WEB-INF/fmt-rt.tld<span class="nt">&lt;/taglib-location&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-uri&gt;</span>http://java.sun.com/jsp/jstl/core<span class="nt">&lt;/taglib-uri&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-location&gt;</span>/WEB-INF/c.tld<span class="nt">&lt;/taglib-location&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-uri&gt;</span>http://java.sun.com/jsp/jstl/core-rt<span class="nt">&lt;/taglib-uri&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-location&gt;</span>/WEB-INF/c-rt.tld<span class="nt">&lt;/taglib-location&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-uri&gt;</span>http://java.sun.com/jsp/jstl/sql<span class="nt">&lt;/taglib-uri&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-location&gt;</span>/WEB-INF/sql.tld<span class="nt">&lt;/taglib-location&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-uri&gt;</span>http://java.sun.com/jsp/jstl/sql-rt<span class="nt">&lt;/taglib-uri&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-location&gt;</span>/WEB-INF/sql-rt.tld<span class="nt">&lt;/taglib-location&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-uri&gt;</span>http://java.sun.com/jsp/jstl/x<span class="nt">&lt;/taglib-uri&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-location&gt;</span>/WEB-INF/x.tld<span class="nt">&lt;/taglib-location&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-uri&gt;</span>http://java.sun.com/jsp/jstl/x-rt<span class="nt">&lt;/taglib-uri&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;taglib-location&gt;</span>/WEB-INF/x-rt.tld<span class="nt">&lt;/taglib-location&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/taglib&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/jsp-config&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/web-app&gt;</span>
+</span></span></code></pre></div><p>（5） 在每个 JSP 文件中的头部包含 <code>&lt;taglib&gt;</code> 标签：</p>
+<p><code>&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;</code></p>
+<p>2、核心标签是最常用的 JSTL标签。引用核心标签库的语法如下：</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>标签</strong></td>
+          <td><strong>描述</strong></td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-out-tag.html">&lt;c:out&gt;</a></td>
+          <td>用于在JSP中显示数据，就像&lt;%= &hellip; &gt;</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-set-tag.html">&lt;c:set&gt;</a></td>
+          <td>用于保存数据</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-remove-tag.html">&lt;c:remove&gt;</a></td>
+          <td>用于删除数据</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-catch-tag.html">&lt;c:catch&gt;</a></td>
+          <td>用来处理产生错误的异常状况，并且将错误信息储存起来</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-if-tag.html">&lt;c:if&gt;</a></td>
+          <td>与我们在一般程序中用的if一样</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-choose-tag.html">&lt;c:choose&gt;</a></td>
+          <td>本身只当做&lt;c:when&gt;和&lt;c:otherwise&gt;的父标签</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-choose-tag.html">&lt;c:when&gt;</a></td>
+          <td>&lt;c:choose&gt;的子标签，用来判断条件是否成立</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-choose-tag.html">&lt;c:otherwise&gt;</a></td>
+          <td>&lt;c:choose&gt;的子标签，接在&lt;c:when&gt;标签后，当&lt;c:when&gt;标签判断为false时被执行</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-import-tag.html">&lt;c:import&gt;</a></td>
+          <td>检索一个绝对或相对 URL，然后将其内容暴露给页面</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-foreach-tag.html">&lt;c:forEach&gt;</a></td>
+          <td>基础迭代标签，接受多种集合类型</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-foreach-tag.html">&lt;c:forTokens&gt;</a></td>
+          <td>根据指定的分隔符来分隔内容并迭代输出</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-param-tag.html">&lt;c:param&gt;</a></td>
+          <td>用来给包含或重定向的页面传递参数</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-redirect-tag.html">&lt;c:redirect&gt;</a></td>
+          <td>重定向至一个新的URL.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.runoob.com/jsp/jstl-core-url-tag.html">&lt;c:url&gt;</a></td>
+          <td>使用可选的查询参数来创造一个URL</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="截图">截图</h2>
+<p><img src="https://l4p-bucket-1.oss-cn-shenzhen.aliyuncs.com/img/c966210861bcaad92aa5d9beb18ece4b_MD5.jpeg" alt=""></p>
+<p><img src="https://l4p-bucket-1.oss-cn-shenzhen.aliyuncs.com/img/a1e2962ed0c2b9f50e4b5972047596d8_MD5.jpeg" alt=""></p>
+<h2 id="代码">代码</h2>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ page language=&#34;java&#34; contentType=&#34;text/html; charset=UTF-8&#34; pageEncoding=&#34;UTF-8&#34; %&gt;  
+&lt;%  
+  // 在各个域中预置几个属性，方便 EL 演示  
+  pageContext.setAttribute   (&#34;pageAttr&#34;,    &#34;这是 pageScope 属性&#34;);  
+  request.setAttribute       (&#34;reqAttr&#34;,     &#34;这是 requestScope 属性&#34;);  
+  session.setAttribute       (&#34;sessAttr&#34;,    &#34;这是 sessionScope 属性&#34;);  
+  application.setAttribute   (&#34;appAttr&#34;,     &#34;这是 applicationScope 属性&#34;);  
+  // 添加一个 Cookie  javax.servlet.http.Cookie ck = new javax.servlet.http.Cookie(&#34;userCookie&#34;, &#34;cookieValue&#34;);  
+  response.addCookie(ck);%&gt;  
+  
+&lt;!DOCTYPE html&gt;  
+&lt;html lang=&#34;zh&#34;&gt;  
+&lt;head&gt;&lt;meta charset=&#34;UTF-8&#34;&gt;&lt;title&gt;EL 内置对象演示&lt;/title&gt;&lt;/head&gt;  
+&lt;body&gt;  
+&lt;h2&gt;一、EL 内置对象&lt;/h2&gt;  
+  
+&lt;!-- pageContext --&gt;  
+&lt;p&gt;pageContext 对象：${pageContext}&lt;/p&gt;  
+  
+&lt;!-- 四个 Scope Map --&gt;&lt;p&gt;pageScope.pageAttr：${pageScope.pageAttr}&lt;/p&gt;  
+&lt;p&gt;requestScope.reqAttr：${requestScope.reqAttr}&lt;/p&gt;  
+&lt;p&gt;sessionScope.sessAttr：${sessionScope.sessAttr}&lt;/p&gt;  
+&lt;p&gt;applicationScope.appAttr：${applicationScope.appAttr}&lt;/p&gt;  
+  
+&lt;!-- 请求参数和参数数组 --&gt;  
+&lt;form action=&#34;elDemo.jsp&#34; method=&#34;get&#34;&gt;  
+  用户名：&lt;input name=&#34;username&#34; value=&#34;${param.username}&#34; /&gt;&lt;br/&gt;  
+  选项（可多选）：&lt;br/&gt;  
+  &lt;input type=&#34;checkbox&#34; name=&#34;choice&#34; value=&#34;A&#34; /&gt; A  
+  &lt;input type=&#34;checkbox&#34; name=&#34;choice&#34; value=&#34;B&#34; /&gt; B  
+  &lt;input type=&#34;checkbox&#34; name=&#34;choice&#34; value=&#34;C&#34; /&gt; C&lt;br/&gt;  
+  &lt;button type=&#34;submit&#34;&gt;提交&lt;/button&gt;  
+&lt;/form&gt;  
+&lt;p&gt;param.username：${param.username}&lt;/p&gt;  
+&lt;p&gt;paramValues.choice：[${paramValues.choice[0]} , ${paramValues.choice[1]}]&lt;/p&gt;  
+  
+&lt;!-- Header 和 HeaderValues --&gt;&lt;p&gt;header[&#39;User-Agent&#39;]：${header[&#39;User-Agent&#39;]}&lt;/p&gt;  
+&lt;p&gt;headerValues[&#39;Accept&#39;]：${headerValues[&#39;Accept&#39;][0]}&lt;/p&gt;  
+  
+&lt;!-- Cookie --&gt;  
+&lt;p&gt;cookie.userCookie.value：${cookie.userCookie.value}&lt;/p&gt;  
+  
+&lt;!-- 初始化参数 --&gt;  
+&lt;p&gt;initParam.siteName：${initParam.siteName}&lt;/p&gt;  
+  
+&lt;!-- 运算和逻辑 --&gt;  
+&lt;p&gt;算术：2 + 3 = ${2 + 3}&lt;/p&gt;  
+  
+&lt;!-- 直接用原生符号 --&gt;  
+&lt;p&gt;逻辑：${5 &gt; 3 &amp;&amp; 2 &lt; 4}&lt;/p&gt;  
+  
+&lt;!-- 或者，使用 EL 关键字 --&gt;  
+&lt;p&gt;逻辑（关键字写法）：${5 gt 3 and 2 lt 4}&lt;/p&gt;  
+  
+&lt;p&gt;三目：${empty param.username ? &#39;未填写用户名&#39; : &#39;欢迎，&#39; + param.username}&lt;/p&gt;  
+  
+&lt;/body&gt;  
+&lt;/html&gt;
+</code></pre></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="application/javascript" src='http://localhost:1313/js/toc.js'></script>
+<link rel="stylesheet" href='http://localhost:1313/css/toc.css' />
+
+  
+</div>
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="http://localhost:1313/">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+      <li class="mr-3 mr-lg-0">GitHub and the Invertocat logo are trademarks of <a href="https://github.com/">GitHub, Inc.</a></li>
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+
+</body>
+
+<script type="application/javascript" src="http://localhost:1313/js/github-style.js"></script>
+
+
+
+
+
+
+
+</html>

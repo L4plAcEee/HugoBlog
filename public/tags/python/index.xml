@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on L4place&#39;s blog</title>
+    <link>http://localhost:1313/tags/python/</link>
+    <description>Recent content in Python on L4place&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 01 Jan 2026 02:46:30 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Re:0】数据挖掘实验笔记</title>
+      <link>http://localhost:1313/post/0x03-data-dipping-exp/</link>
+      <pubDate>Thu, 01 Jan 2026 02:44:08 +0800</pubDate>
+      <guid>http://localhost:1313/post/0x03-data-dipping-exp/</guid>
+      <description>数据挖掘基础操作学习，以及各种常见算法模型的应用，最后构建自己的推荐算法。</description>
+    </item>
+  </channel>
+</rss>

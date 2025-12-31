@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>开发 on L4place&#39;s blog</title>
+    <link>http://localhost:1313/tags/%E5%BC%80%E5%8F%91/</link>
+    <description>Recent content in 开发 on L4place&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 01 Jan 2026 02:48:40 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【N0te】JavaWeb实验</title>
+      <link>http://localhost:1313/post/0x02-java-web-exp/</link>
+      <pubDate>Thu, 01 Jan 2026 02:20:07 +0800</pubDate>
+      <guid>http://localhost:1313/post/0x02-java-web-exp/</guid>
+      <description>从最底层开始的Web基础开始认知，一步一步搭建自己的一个项目。</description>
+    </item>
+    <item>
+      <title>【Re:0】DIY之做一个JSON工具库</title>
+      <link>http://localhost:1313/post/0x01-to-build-a-json-parser/</link>
+      <pubDate>Tue, 30 Dec 2025 16:12:08 +0800</pubDate>
+      <guid>http://localhost:1313/post/0x01-to-build-a-json-parser/</guid>
+      <description>基于 C++ 的JSON解析器\学习以及实现，然后基于此实现自己的JSON工具库</description>
+    </item>
+  </channel>
+</rss>
